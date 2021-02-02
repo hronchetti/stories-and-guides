@@ -1,0 +1,11 @@
+@mixin shadow-soft {
+  box-shadow: 0rem 0.25rem 0.625rem rgba(0, 0, 0, 0.02);
+}
+
+@mixin shadow-medium {
+  box-shadow: 0rem 0.25rem 0.5rem rgba(0, 0, 0, 0.06);
+}
+
+@mixin shadow-hard {
+  box-shadow: 0rem 0.5rem 0.5rem rgba(0, 0, 0, 0.08);
+}

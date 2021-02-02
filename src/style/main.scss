@@ -1,0 +1,24 @@
+// 01 ABSTRACT - Sass only, no direct CSS output
+@import "01-abstract/animation-presets";
+@import "01-abstract/button-preset";
+@import "01-abstract/calculate-rem";
+@import "01-abstract/colour";
+@import "01-abstract/flexbox-presets";
+@import "01-abstract/shadows";
+
+// 02 GLOBAL - High-level styles used site-wide
+@import "02-global/animations";
+@import "02-global/fonts";
+@import "02-global/icons";
+@import "02-global/site";
+
+// 03 UTILITIES - Re-usable classes using OOCSS logic
+@import "03-utilities/wrappers";
+@import "03-utilities/grids";
+
+// 04 COMPONENTS - Nested component styles in respective component folders
+@import "../components/components";
+
+// 05 PAGES - unique styles related to stand-alone Gatsby pages
+
+// 06 TEMPLATES - unique styles related to Gatsby templates

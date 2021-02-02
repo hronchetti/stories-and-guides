@@ -1,13 +1,13 @@
-import * as React from 'react';
+import * as React from "react"
 
-import { Layout } from '../components';
+import { Layout } from "../components"
 
 const IndexPage = () => {
   return (
     <Layout>
-      <h1>Hello world</h1>
+      <h1 className="heading-extra-large">Hello world</h1>
     </Layout>
-  );
-};
+  )
+}
 
-export default IndexPage;
+export default IndexPage

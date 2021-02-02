@@ -1,1 +1,6 @@
-export { Layout } from './Layout';
+export { Layout, LayoutPhoto } from "./Layouts"
+export { Button, ButtonLink } from "./Buttons"
+export { Nav } from "./Nav"
+export { Footer } from "./Footer"
+export { Input, TextArea, ErrorText } from "./Form"
+export { Seo } from "./SEO"
