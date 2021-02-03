@@ -22,10 +22,12 @@ const Destination = ({ data }) => {
 
   const nonFeaturedStories =
     stories &&
-    stories.filter((story) =>
-      featuredStories.some(
-        (featuredStory) => story.contentful_id !== featuredStory.contentful_id
-      )
+    stories.filter(
+      (story) =>
+        featuredStories &&
+        featuredStories.some(
+          (featuredStory) => story.contentful_id !== featuredStory.contentful_id
+        )
     )
 
   const otherDestinations = data.otherDesinationsInRegion.edges
