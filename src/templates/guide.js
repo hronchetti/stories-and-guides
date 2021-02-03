@@ -19,11 +19,13 @@ const Guide = ({ data }) => {
     subGuides,
   } = data.guide
 
-  const nonFeaturedStories = stories.filter((story) =>
-    featuredStories.some(
-      (featuredStory) => story.contentful_id !== featuredStory.contentful_id
+  const nonFeaturedStories =
+    stories &&
+    stories.filter((story) =>
+      featuredStories.some(
+        (featuredStory) => story.contentful_id !== featuredStory.contentful_id
+      )
     )
-  )
 
   return (
     <LayoutPhoto photo={coverPhoto.fluid} photoDesc={coverPhoto.title}>

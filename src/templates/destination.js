@@ -20,11 +20,13 @@ const Destination = ({ data }) => {
     usefulInformation,
   } = data.destination
 
-  const nonFeaturedStories = stories.filter((story) =>
-    featuredStories.some(
-      (featuredStory) => story.contentful_id !== featuredStory.contentful_id
+  const nonFeaturedStories =
+    stories &&
+    stories.filter((story) =>
+      featuredStories.some(
+        (featuredStory) => story.contentful_id !== featuredStory.contentful_id
+      )
     )
-  )
 
   const otherDestinations = data.otherDesinationsInRegion.edges
 
