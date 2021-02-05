@@ -16,17 +16,18 @@ const Destination = ({ data }) => {
     region,
     seo,
     slug,
-    stories,
     usefulInformation,
   } = data.destination
+
+  const stories = data.stories.edges
 
   const nonFeaturedStories =
     stories &&
     stories.filter(
-      (story) =>
+      ({ node }) =>
         featuredStories &&
         featuredStories.some(
-          (featuredStory) => story.contentful_id !== featuredStory.contentful_id
+          (featuredStory) => node.contentful_id !== featuredStory.contentful_id
         )
     )
 
@@ -37,7 +38,7 @@ const Destination = ({ data }) => {
       <Seo
         title={seo.title}
         description={seo.metaDescription.metaDescription}
-        url={siteUrl + "/destinations/" + slug}
+        url={siteUrl + `/destinations/${slug}`}
         image={seo.image.file.url}
       />
       <header className="wrapper-width">
@@ -102,14 +103,14 @@ const Destination = ({ data }) => {
                 nonFeaturedStories.length < 4 ? "grid-col-2" : "grid-col-4"
               }
             >
-              {nonFeaturedStories.map((featuredStory) => (
+              {nonFeaturedStories.map(({ node }) => (
                 <PhotoCard
-                  key={featuredStory.contentful_id}
-                  title={featuredStory.title}
-                  photo={featuredStory.coverPhoto.fluid}
-                  photoDesc={featuredStory.coverPhoto.title}
-                  to={`/stories/${featuredStory.slug}/`}
-                  date={featuredStory.createdAt}
+                  key={node.contentful_id}
+                  title={node.title}
+                  photo={node.coverPhoto.fluid}
+                  photoDesc={node.coverPhoto.title}
+                  to={`/stories/${node.slug}/`}
+                  date={node.createdAt}
                 />
               ))}
             </section>
@@ -188,18 +189,6 @@ export const pageQuery = graphql`
         title
         createdAt
       }
-      stories {
-        contentful_id
-        slug
-        coverPhoto {
-          title
-          fluid(maxWidth: 2100) {
-            ...GatsbyContentfulFluid
-          }
-        }
-        title
-        createdAt
-      }
       guides {
         contentful_id
         name
@@ -225,6 +214,24 @@ export const pageQuery = graphql`
           content {
             content
           }
+        }
+      }
+    }
+    stories: allContentfulStories(
+      filter: { destination: { contentful_id: { eq: $id } } }
+    ) {
+      edges {
+        node {
+          contentful_id
+          slug
+          coverPhoto {
+            title
+            fluid(maxWidth: 2100) {
+              ...GatsbyContentfulFluid
+            }
+          }
+          title
+          createdAt
         }
       }
     }

@@ -10,31 +10,37 @@ export const Nav = ({ colour }) => {
   return (
     <nav className={`nav nav-${colour}`}>
       <section className="wrapper-width">
-        <Logo />
-        <ul>
-          <li>
-            <Link to="/guides/">Guides</Link>
-          </li>
-          <li>
-            <Link to="/destinations/">Destinations</Link>
-          </li>
-          <li>
-            <Link to="/stories/">Stories</Link>
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <Link to="/about/">About</Link>
-          </li>
-          <li>
-            <Link to="/contact/">Contact</Link>
-          </li>
-        </ul>
-        <button
-          className="nav-mobile-menu"
-          aria-label={mobileMenuVisible ? "Close menu" : "Open menu"}
-          onClick={() => setMobileMenuVisible((current) => !current)}
-        ></button>
+        <div className="nav-header">
+          <Link to="/">
+            <Logo />
+          </Link>
+          <button
+            className="nav-mobile-menu-button"
+            aria-label={mobileMenuVisible ? "Close menu" : "Open menu"}
+            onClick={() => setMobileMenuVisible((current) => !current)}
+          ></button>
+        </div>
+        <div className="nav-links">
+          <ul className="nav-links-main">
+            <li>
+              <Link to="/guides/">Guides</Link>
+            </li>
+            <li>
+              <Link to="/destinations/">Destinations</Link>
+            </li>
+            <li>
+              <Link to="/stories/">Stories</Link>
+            </li>
+          </ul>
+          <ul className="nav-links-secondary">
+            <li>
+              <Link to="/about/">About</Link>
+            </li>
+            <li>
+              <Link to="/contact/">Contact</Link>
+            </li>
+          </ul>
+        </div>
       </section>
       <section className="nav-mobile-menu-overlay"></section>
     </nav>

@@ -26,6 +26,18 @@ exports.createPages = async ({ graphql, actions }) => {
           }
         }
       }
+      allContentfulGuidesSubGuides {
+        edges {
+          node {
+            contentful_id
+            slug
+            guides {
+              contentful_id
+              slug
+            }
+          }
+        }
+      }
       allContentfulStories {
         edges {
           node {
@@ -57,6 +69,20 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         id: node.contentful_id,
       },
+    })
+  })
+
+  // Sub Guides
+  result.data.allContentfulGuidesSubGuides.edges.forEach(({ node }) => {
+    node.guides.forEach((guide) => {
+      createPage({
+        path: `/guides/${guide.slug}/${node.slug}`,
+        component: path.resolve(`src/templates/sub-guide.js`),
+        context: {
+          id: node.contentful_id,
+          guideId: guide.contentful_id,
+        },
+      })
     })
   })
 

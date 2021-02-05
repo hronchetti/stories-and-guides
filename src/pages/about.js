@@ -1,44 +1,44 @@
-import * as React from "react"
+import React from "react"
 import { graphql } from "gatsby"
 
 import { LayoutPhoto, Seo } from "../components"
 
-const IndexPage = ({ data }) => {
+const About = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
   const {
     heading,
     coverPhoto,
-    introduction,
-    contactSectionHeading,
-    contactSectionButtonText,
     seo,
-  } = data.homepage
+    introduction,
+    contributor,
+    sections,
+  } = data.aboutPage
+
   return (
     <LayoutPhoto
-      photo={data.homepage.coverPhoto.fluid}
-      photoDesc={data.homepage.coverPhoto.title}
+      photo={data.aboutPage.coverPhoto.fluid}
+      photoDesc={data.aboutPage.coverPhoto.title}
     >
       <Seo
         title={seo.title}
         description={seo.metaDescription.metaDescription}
-        url={siteUrl}
+        url={siteUrl + `/about/`}
         image={seo.image.file.url}
       />
-      <h1 className="heading-extra-large">{heading}</h1>
     </LayoutPhoto>
   )
 }
 
-export default IndexPage
+export default About
 
 export const pageQuery = graphql`
-  query getHomepage {
+  query getAboutPage {
     site {
       siteMetadata {
         siteUrl
       }
     }
-    homepage: contentfulHomePage {
+    aboutPage: contentfulAboutPage {
       heading
       coverPhoto {
         fluid(maxWidth: 2100) {
@@ -46,10 +46,22 @@ export const pageQuery = graphql`
         }
         title
       }
-      contactSectionHeading
-      contactSectionButtonText
       introduction {
         introduction
+      }
+      contributor {
+        content {
+          content
+        }
+        heading
+        contentful_id
+      }
+      sections {
+        content {
+          raw
+        }
+        heading
+        contentful_id
       }
       seo {
         metaDescription {

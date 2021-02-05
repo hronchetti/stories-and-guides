@@ -15,17 +15,18 @@ const Guide = ({ data }) => {
     name,
     seo,
     slug,
-    stories,
     subGuides,
   } = data.guide
+
+  const stories = data.stories.edges
 
   const nonFeaturedStories =
     stories &&
     stories.filter(
-      (story) =>
+      ({ node }) =>
         featuredStories &&
         featuredStories.some(
-          (featuredStory) => story.contentful_id !== featuredStory.contentful_id
+          (featuredStory) => node.contentful_id !== featuredStory.contentful_id
         )
     )
 
@@ -34,7 +35,7 @@ const Guide = ({ data }) => {
       <Seo
         title={seo.title}
         description={seo.metaDescription.metaDescription}
-        url={siteUrl + "/guides/" + slug}
+        url={siteUrl + `/guides/${slug}`}
         image={seo.image.file.url}
       />
       <header className="wrapper-width">
@@ -48,13 +49,13 @@ const Guide = ({ data }) => {
             <section
               className={subGuides.length < 4 ? "grid-col-2" : "grid-col-4"}
             >
-              {subGuides.map((guide) => (
+              {subGuides.map((subGuide) => (
                 <PhotoCard
-                  key={guide.contentful_id}
-                  title={guide.name}
-                  photo={guide.coverPhoto.fluid}
-                  photoDesc={guide.coverPhoto.title}
-                  to={`/guides/${guide.slug}/`}
+                  key={subGuide.contentful_id}
+                  title={subGuide.name}
+                  photo={subGuide.coverPhoto.fluid}
+                  photoDesc={subGuide.coverPhoto.title}
+                  to={`/guides/${slug}/${subGuide.slug}/`}
                 />
               ))}
             </section>
@@ -182,17 +183,23 @@ export const pageQuery = graphql`
           name
         }
       }
-      stories {
-        contentful_id
-        slug
-        coverPhoto {
-          title
-          fluid(maxWidth: 2100) {
-            ...GatsbyContentfulFluid
+    }
+    stories: allContentfulStories(
+      filter: { guides: { elemMatch: { contentful_id: { eq: $id } } } }
+    ) {
+      edges {
+        node {
+          contentful_id
+          slug
+          coverPhoto {
+            title
+            fluid(maxWidth: 2100) {
+              ...GatsbyContentfulFluid
+            }
           }
+          title
+          createdAt
         }
-        title
-        createdAt
       }
     }
   }
