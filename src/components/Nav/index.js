@@ -11,38 +11,56 @@ export const Nav = ({ colour }) => {
     <nav className={`nav nav-${colour}`}>
       <section className="wrapper-width">
         <div className="nav-header">
-          <Link to="/">
+          <Link to="/" className="nav-header-logo">
             <Logo />
           </Link>
           <button
-            className="nav-mobile-menu-button"
+            className={`nav-header-menu-button${
+              mobileMenuVisible ? " active" : ""
+            }`}
             aria-label={mobileMenuVisible ? "Close menu" : "Open menu"}
             onClick={() => setMobileMenuVisible((current) => !current)}
-          ></button>
+          >
+            <span className="nav-header-menu-button-line" />
+            <span className="nav-header-menu-button-line" />
+            <span className="nav-header-menu-button-line" />
+          </button>
         </div>
-        <div className="nav-links">
-          <ul className="nav-links-main">
-            <li>
-              <Link to="/guides/">Guides</Link>
-            </li>
-            <li>
-              <Link to="/destinations/">Destinations</Link>
-            </li>
-            <li>
-              <Link to="/stories/">Stories</Link>
-            </li>
-          </ul>
-          <ul className="nav-links-secondary">
-            <li>
-              <Link to="/about/">About</Link>
-            </li>
-            <li>
-              <Link to="/contact/">Contact</Link>
-            </li>
-          </ul>
-        </div>
+        <ul className={`nav-main${mobileMenuVisible ? " active" : ""}`}>
+          <li className="nav-link">
+            <Link to="/guides/" activeClassName="active">
+              Guides
+            </Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/destinations/" activeClassName="active">
+              Destinations
+            </Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/stories/" activeClassName="active">
+              Stories
+            </Link>
+          </li>
+        </ul>
+        <ul className={`nav-secondary${mobileMenuVisible ? " active" : ""}`}>
+          <li className="nav-link">
+            <Link to="/about/" activeClassName="active">
+              About
+            </Link>
+          </li>
+          <li className="nav-link">
+            <Link to="/contact/" activeClassName="active">
+              Contact
+            </Link>
+          </li>
+        </ul>
       </section>
-      <section className="nav-mobile-menu-overlay"></section>
+      <section
+        className={`nav-mobile-menu-overlay${
+          mobileMenuVisible ? " active" : ""
+        }`}
+      ></section>
     </nav>
   )
 }
