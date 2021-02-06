@@ -8,7 +8,7 @@ export const Nav = ({ colour }) => {
   const [mobileMenuVisible, setMobileMenuVisible] = React.useState(false)
 
   return (
-    <nav className={`nav nav-${colour}`}>
+    <nav className={`nav nav-${colour}${mobileMenuVisible ? " active" : ""}`}>
       <section className="wrapper-width">
         <div className="nav-header">
           <Link to="/" className="nav-header-logo">

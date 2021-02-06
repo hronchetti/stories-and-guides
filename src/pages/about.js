@@ -16,8 +16,10 @@ const About = ({ data }) => {
 
   return (
     <LayoutPhoto
-      photo={data.aboutPage.coverPhoto.fluid}
-      photoDesc={data.aboutPage.coverPhoto.title}
+      heading={heading}
+      introduction={introduction.introduction}
+      photo={coverPhoto.fluid}
+      photoDesc={coverPhoto.title}
     >
       <Seo
         title={seo.title}

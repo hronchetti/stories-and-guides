@@ -18,35 +18,34 @@ const Story = ({ data }) => {
     title,
   } = data.story
   return (
-    <LayoutPhoto photo={coverPhoto.fluid} photoDesc={coverPhoto.title}>
+    <LayoutPhoto
+      heading={title}
+      date={format(parseISO(createdAt), "dd.MM.y")}
+      introduction={introduction.introduction}
+      photo={coverPhoto.fluid}
+      photoDesc={coverPhoto.title}
+    >
       <Seo
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/stories/${slug}/`}
         image={seo.image.file.url}
       />
-      <header className="wrapper-width">
-        <h1 className="heading-extra-large">{title}</h1>
-        <span>{format(parseISO(createdAt), "dd.MM.y")}</span>
-        <p className="heading-small">{introduction.introduction}</p>
-      </header>
-      <main className="wrapper-width">
-        <section className="wrapper-height">
-          <h2 className="heading-extra-small">More stories like this</h2>
-          <section className="grid-col-2">
-            {relatedStories.map((relatedStory) => (
-              <PhotoCard
-                key={relatedStory.contentful_id}
-                title={relatedStory.title}
-                photo={relatedStory.coverPhoto.fluid}
-                photoDesc={relatedStory.coverPhoto.title}
-                to={`/stories/${relatedStory.slug}/`}
-                date={relatedStory.createdAt}
-              />
-            ))}
-          </section>
+      <section className="wrapper-height">
+        <h2 className="heading-extra-small">More stories like this</h2>
+        <section className="grid-col-2">
+          {relatedStories.map((relatedStory) => (
+            <PhotoCard
+              key={relatedStory.contentful_id}
+              title={relatedStory.title}
+              photo={relatedStory.coverPhoto.fluid}
+              photoDesc={relatedStory.coverPhoto.title}
+              to={`/stories/${relatedStory.slug}/`}
+              date={relatedStory.createdAt}
+            />
+          ))}
         </section>
-      </main>
+      </section>
     </LayoutPhoto>
   )
 }

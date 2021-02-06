@@ -19,7 +19,12 @@ const SubGuide = ({ data }) => {
   } = data.subGuide
 
   return (
-    <LayoutPhoto photo={coverPhoto.fluid} photoDesc={coverPhoto.title}>
+    <LayoutPhoto
+      heading={name}
+      introduction={introduction.introduction}
+      photo={coverPhoto.fluid}
+      photoDesc={coverPhoto.title}
+    >
       <Seo
         title={seo.title}
         description={seo.metaDescription.metaDescription}

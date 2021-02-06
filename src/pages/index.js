@@ -15,8 +15,10 @@ const IndexPage = ({ data }) => {
   } = data.homepage
   return (
     <LayoutPhoto
-      photo={data.homepage.coverPhoto.fluid}
-      photoDesc={data.homepage.coverPhoto.title}
+      heading={heading}
+      introduction={introduction.introduction}
+      photo={coverPhoto.fluid}
+      photoDesc={coverPhoto.title}
     >
       <Seo
         title={seo.title}
@@ -24,7 +26,6 @@ const IndexPage = ({ data }) => {
         url={siteUrl}
         image={seo.image.file.url}
       />
-      <h1 className="heading-extra-large">{heading}</h1>
     </LayoutPhoto>
   )
 }

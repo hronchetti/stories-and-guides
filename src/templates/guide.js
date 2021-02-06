@@ -31,89 +31,84 @@ const Guide = ({ data }) => {
     )
 
   return (
-    <LayoutPhoto photo={coverPhoto.fluid} photoDesc={coverPhoto.title}>
+    <LayoutPhoto
+      heading={name}
+      introduction={introduction.introduction}
+      photo={coverPhoto.fluid}
+      photoDesc={coverPhoto.title}
+    >
       <Seo
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/guides/${slug}`}
         image={seo.image.file.url}
       />
-      <header className="wrapper-width">
-        <h1 className="heading-extra-large">{name}</h1>
-        <p className="heading-small">{introduction.introduction}</p>
-      </header>
-      <main className="wrapper-width">
-        {subGuides && subGuides.length > 0 && (
-          <section className="wrapper-height">
-            <h2 className="heading-extra-small">Guides</h2>
-            <section
-              className={subGuides.length < 4 ? "grid-col-2" : "grid-col-4"}
-            >
-              {subGuides.map((subGuide) => (
-                <PhotoCard
-                  key={subGuide.contentful_id}
-                  title={subGuide.name}
-                  photo={subGuide.coverPhoto.fluid}
-                  photoDesc={subGuide.coverPhoto.title}
-                  to={`/guides/${slug}/${subGuide.slug}/`}
-                />
-              ))}
-            </section>
+      {subGuides && subGuides.length > 0 && (
+        <section className="wrapper-height">
+          <h2 className="heading-extra-small">Guides</h2>
+          <section
+            className={subGuides.length < 4 ? "grid-col-2" : "grid-col-4"}
+          >
+            {subGuides.map((subGuide) => (
+              <PhotoCard
+                key={subGuide.contentful_id}
+                title={subGuide.name}
+                photo={subGuide.coverPhoto.fluid}
+                photoDesc={subGuide.coverPhoto.title}
+                to={`/guides/${slug}/${subGuide.slug}/`}
+              />
+            ))}
           </section>
-        )}
-        {featuredStories && featuredStories.length > 0 && (
-          <section className="wrapper-height">
-            <h2 className="heading-extra-small">
-              Featured stories from {name}
-            </h2>
-            <section
-              className={
-                featuredStories.length < 4 ? "grid-col-2" : "grid-col-4"
-              }
-            >
-              {featuredStories.map((featuredStory) => (
-                <PhotoCard
-                  key={featuredStory.contentful_id}
-                  title={featuredStory.title}
-                  photo={featuredStory.coverPhoto.fluid}
-                  photoDesc={featuredStory.coverPhoto.title}
-                  to={`/stories/${featuredStory.slug}/`}
-                  date={featuredStory.createdAt}
-                />
-              ))}
-            </section>
+        </section>
+      )}
+      {featuredStories && featuredStories.length > 0 && (
+        <section className="wrapper-height">
+          <h2 className="heading-extra-small">Featured stories from {name}</h2>
+          <section
+            className={featuredStories.length < 4 ? "grid-col-2" : "grid-col-4"}
+          >
+            {featuredStories.map((featuredStory) => (
+              <PhotoCard
+                key={featuredStory.contentful_id}
+                title={featuredStory.title}
+                photo={featuredStory.coverPhoto.fluid}
+                photoDesc={featuredStory.coverPhoto.title}
+                to={`/stories/${featuredStory.slug}/`}
+                date={featuredStory.createdAt}
+              />
+            ))}
           </section>
+        </section>
+      )}
+      {accordions &&
+        accordions.accordions &&
+        accordions.accordions.length > 0 && (
+          <AccordionContainer
+            heading={accordions.heading}
+            accordions={accordions.accordions}
+          />
         )}
-        {accordions &&
-          accordions.accordions &&
-          accordions.accordions.length > 0 && (
-            <AccordionContainer
-              heading={accordions.heading}
-              accordions={accordions.accordions}
-            />
-          )}
-        {nonFeaturedStories && nonFeaturedStories.length > 0 && (
-          <section className="wrapper-height">
-            <h2 className="heading-extra-small">All stories from {name}</h2>
-            <section
-              className={
-                nonFeaturedStories.length < 4 ? "grid-col-2" : "grid-col-4"
-              }
-            >
-              {nonFeaturedStories.map((featuredStory) => (
-                <PhotoCard
-                  key={featuredStory.contentful_id}
-                  title={featuredStory.title}
-                  photo={featuredStory.coverPhoto.fluid}
-                  photoDesc={featuredStory.coverPhoto.title}
-                  to={`/stories/${featuredStory.slug}/`}
-                  date={featuredStory.createdAt}
-                />
-              ))}
-            </section>
+      {nonFeaturedStories && nonFeaturedStories.length > 0 && (
+        <section className="wrapper-height">
+          <h2 className="heading-extra-small">All stories from {name}</h2>
+          <section
+            className={
+              nonFeaturedStories.length < 4 ? "grid-col-2" : "grid-col-4"
+            }
+          >
+            {nonFeaturedStories.map((featuredStory) => (
+              <PhotoCard
+                key={featuredStory.contentful_id}
+                title={featuredStory.title}
+                photo={featuredStory.coverPhoto.fluid}
+                photoDesc={featuredStory.coverPhoto.title}
+                to={`/stories/${featuredStory.slug}/`}
+                date={featuredStory.createdAt}
+              />
+            ))}
           </section>
-        )}
-      </main>
+        </section>
+      )}
     </LayoutPhoto>
   )
 }
