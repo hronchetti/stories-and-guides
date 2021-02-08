@@ -9,7 +9,7 @@ export const Nav = ({ colour }) => {
 
   return (
     <nav className={`nav nav-${colour}${mobileMenuVisible ? " active" : ""}`}>
-      <section className="wrapper-width">
+      <section className="wrapper-width nav-wrapper">
         <div className="nav-header">
           <Link to="/" className="nav-header-logo">
             <Logo />

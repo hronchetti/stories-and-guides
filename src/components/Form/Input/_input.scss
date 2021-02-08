@@ -1,0 +1,52 @@
+.input {
+  .input-label {
+    display: none;
+  }
+
+  .input-field-wrapper {
+    position: relative;
+
+    .input-field {
+      appearance: none;
+      background-color: white;
+      border: none;
+      font: 300 1rem/1.5rem $font;
+      letter-spacing: 0.5px;
+      padding: 0.75rem 1.25rem;
+      width: 100%;
+      display: block;
+
+      &:focus {
+        outline: none;
+
+        + .input-field-selector {
+          height: 0.125rem;
+          right: 0;
+        }
+      }
+    }
+
+    .input-field-selector {
+      display: block;
+      position: absolute;
+      background-color: #a3806f;
+      height: 0;
+      left: 0;
+      bottom: 0;
+      right: 100%;
+      transition: right cubic-bezier(0.4, 0.1, 0.1, 1) 600ms;
+    }
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .input {
+    .input-field-wrapper {
+      .input-field {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+        padding: 0.875rem 1.25rem;
+      }
+    }
+  }
+}

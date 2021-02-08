@@ -25,6 +25,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-arrow:before {
+  content: "\e907";
+}
+.icon-share:before {
+  content: "\e908";
+}
 .icon-chevron:before {
   content: "\e900";
 }

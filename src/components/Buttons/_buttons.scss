@@ -1,0 +1,16 @@
+.button {
+  @include button-preset;
+  font: 300 1rem/1.5rem $font;
+  letter-spacing: 0.5px;
+  display: block;
+  background-color: $beige-dark;
+  color: white;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+}
+
+@media only screen and (min-width: 1100px) {
+  .button {
+    font-size: 1.125rem;
+  }
+}

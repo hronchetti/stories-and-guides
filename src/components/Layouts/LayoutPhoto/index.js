@@ -20,7 +20,7 @@ export const LayoutPhoto = ({
       alt={photoDesc}
       title={photoDesc}
     />
-    <header className="wrapper-width">
+    <header className="wrapper-width header header-photo">
       <h1 className="heading-extra-large">{heading}</h1>
       {date && <span>{date}</span>}
       <p className="heading-small">{introduction}</p>

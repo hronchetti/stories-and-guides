@@ -1,0 +1,249 @@
+.scroll-to-top {
+  @include button-preset;
+  display: block;
+  margin: 4rem auto;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+
+    .scroll-to-top-text {
+      &:before {
+        width: 100%;
+        height: 1px;
+      }
+    }
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      .scroll-to-top-text {
+        &:before {
+          width: 100%;
+          height: 1px;
+        }
+      }
+    }
+  }
+
+  .scroll-to-top-icon {
+    font-size: 1.125rem;
+    display: block;
+    transform: rotate(-90deg);
+  }
+
+  .scroll-to-top-text {
+    position: relative;
+    display: block;
+
+    &:before {
+      display: block;
+      content: "";
+      position: absolute;
+      background-color: $beige-dark;
+      left: 0;
+      width: 0;
+      bottom: 0;
+      height: 0;
+      transition: width cubic-bezier(0.4, 0.1, 0.1, 1) 600ms;
+    }
+  }
+}
+
+.footer {
+  background-color: #1e2123;
+  color: $beige-light;
+  padding: 1.5rem 0 2.5rem;
+
+  a {
+    color: $beige-light;
+    text-decoration: none;
+    display: block;
+  }
+
+  .footer-upper {
+    margin-bottom: 2rem;
+
+    .footer-heading {
+      display: block;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-upper-link-group {
+      margin-bottom: 2rem;
+
+      a {
+        line-height: 1.5rem;
+        padding: 0.5rem 0;
+        position: relative;
+
+        &:after {
+          display: block;
+          font: normal 1.75rem/1.75rem "icomoon";
+          content: "\e900";
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translate(0, -50%);
+          color: $beige-medium;
+        }
+      }
+    }
+
+    .footer-form {
+      .input {
+        &:first-of-type {
+          border-bottom: 1px solid #d9d9d9;
+
+          .form-error-text {
+            display: none;
+          }
+        }
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+  }
+
+  .footer-lower {
+    .footer-lower-copyright {
+      display: block;
+    }
+
+    .footer-lower-link {
+      margin-top: 0.5rem;
+      padding: 0.375rem 0;
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .scroll-to-top {
+    margin: 6rem auto;
+  }
+
+  .footer {
+    padding: 2.5rem 0 3.5rem;
+
+    a {
+      display: inline-block;
+      position: relative;
+
+      @media (hover: hover) {
+        &:hover {
+          &:before {
+            width: 100%;
+            height: 1px;
+          }
+        }
+      }
+
+      &:focus {
+        &:before {
+          width: 100%;
+          height: 1px;
+        }
+      }
+
+      &:before {
+        display: block;
+        content: "";
+        position: absolute;
+        background-color: $beige-light;
+        left: 0;
+        width: 0;
+        bottom: 0;
+        height: 0;
+        transition: width cubic-bezier(0.4, 0.1, 0.1, 1) 600ms;
+      }
+    }
+
+    .footer-upper {
+      display: grid;
+      grid-template-columns: 1fr 1fr 2fr;
+      gap: 0 2rem;
+
+      .footer-heading {
+        margin-bottom: 0.125rem;
+      }
+
+      .footer-upper-link-group {
+        a {
+          padding: 0.25rem 0;
+          margin: 0.25rem 0;
+
+          &:after {
+            display: none;
+          }
+        }
+      }
+
+      .footer-form {
+        .footer-heading {
+          margin-bottom: 0.625rem;
+        }
+      }
+    }
+
+    .footer-lower {
+      @include flex-space-between;
+      align-items: center;
+
+      .footer-lower-link {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .scroll-to-top {
+    margin: 7.5rem auto 10rem;
+
+    .scroll-to-top-icon {
+      font-size: 1.5rem;
+    }
+
+    .scroll-to-top-text {
+      padding-bottom: 0.25rem;
+    }
+  }
+
+  .footer {
+    padding: 3.5rem 0 5rem;
+
+    .footer-upper {
+      margin-bottom: 4rem;
+
+      .footer-form {
+        display: grid;
+        grid-template-columns: 1fr 1fr 7.5rem;
+        grid-template-rows: 2.625rem auto;
+
+        .footer-heading {
+          grid-column: 1/4;
+        }
+
+        .input {
+          &:first-of-type {
+            border-bottom: none;
+
+            .input-field-wrapper {
+              .input-field {
+                border-right: 1px solid #d9d9d9;
+              }
+            }
+          }
+        }
+
+        .button {
+          height: 3.5rem;
+        }
+      }
+    }
+  }
+}
