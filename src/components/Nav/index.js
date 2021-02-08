@@ -6,9 +6,29 @@ import Logo from "../../images/stories-and-guides-logo.svg"
 
 export const Nav = ({ colour }) => {
   const [mobileMenuVisible, setMobileMenuVisible] = React.useState(false)
+  const [
+    scrollOverViewportHeight,
+    setScrollOverViewportHeight,
+  ] = React.useState(false)
+
+  React.useEffect(() => {
+    if (window) {
+      window.onscroll = () => {
+        if (window.pageYOffset > window.innerHeight) {
+          setScrollOverViewportHeight(true)
+        } else {
+          setScrollOverViewportHeight(false)
+        }
+      }
+    }
+  })
 
   return (
-    <nav className={`nav nav-${colour}${mobileMenuVisible ? " active" : ""}`}>
+    <nav
+      className={`nav nav-${scrollOverViewportHeight ? "dark" : colour}${
+        mobileMenuVisible ? " active" : ""
+      }`}
+    >
       <section className="wrapper-width nav-wrapper">
         <div className="nav-header">
           <Link to="/" className="nav-header-logo">

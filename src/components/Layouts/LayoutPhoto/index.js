@@ -1,6 +1,7 @@
 import React from "react"
 import PropTypes from "prop-types"
 import Img from "gatsby-image"
+import TrackVisibility from "react-on-screen"
 
 import { Footer, Nav } from "../.."
 
@@ -20,11 +21,20 @@ export const LayoutPhoto = ({
       alt={photoDesc}
       title={photoDesc}
     />
-    <header className="wrapper-width header header-photo">
-      <h1 className="heading-extra-large">{heading}</h1>
-      {date && <span>{date}</span>}
-      <p className="heading-small">{introduction}</p>
-    </header>
+    <TrackVisibility
+      tag="header"
+      className="wrapper-width header layout-photo-header"
+      partialVisibility
+      once
+    >
+      {({ isVisible }) => (
+        <div className={isVisible ? "header-inner active" : "header-inner"}>
+          <h1 className="heading-extra-large">{heading}</h1>
+          {date && <span>{date}</span>}
+          <p className="heading-small">{introduction}</p>
+        </div>
+      )}
+    </TrackVisibility>
     <main className="wrapper-width layout-photo">{children}</main>
     <Footer />
   </>
