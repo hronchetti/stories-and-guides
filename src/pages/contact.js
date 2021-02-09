@@ -1,10 +1,11 @@
 import React from "react"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
-import { Formik } from "formik"
+import { Formik, Field } from "formik"
 import * as Yup from "yup"
 import stringify from "qs-stringify"
 import axios from "axios"
+import TrackVisibility from "react-on-screen"
 
 import {
   Button,
@@ -64,46 +65,67 @@ const Contact = ({ data }) => {
         url={siteUrl + `/contact/`}
         image={seo.image.file.url}
       />
-      <section className="contact">
-        <Formik
-          initialValues={{
-            name: "",
-            email: "",
-            message: "",
-          }}
-          validationSchema={Yup.object().shape({
-            name: Yup.string().required("Please enter your name"),
-            email: Yup.string()
-              .email("Please enter a valid email address")
-              .required("Please enter your email"),
-            message: Yup.string().required("Please enter a message"),
-          })}
-          onSubmit={handleSubmit}
-        >
-          {({ isSubmitting }) => (
-            <Form className="contact-form">
-              <h2 className="heading-medium contact-form-heading">
-                {contactFormHeading}
-              </h2>
-              <Input placeholder="Your name" name="name" label="Your name" />
-              <Input placeholder="Your email" name="email" label="Your email" />
-              <TextArea
-                placeholder="Your message"
-                name="message"
-                label="Your message"
-              />
-              <Button type="submit" disabled={isSubmitting}>
-                Subscribe
-              </Button>
-            </Form>
-          )}
-        </Formik>
-        <Img
-          className="contact-photo"
-          fluid={contactFormPhoto.fluid}
-          alt={contactFormPhoto.title}
-        />
-      </section>
+      <TrackVisibility className="contact" partialVisibility once tag="section">
+        {({ isVisible }) => (
+          <>
+            <Formik
+              initialValues={{
+                name: "",
+                email: "",
+                message: "",
+                "bot-field": "",
+                "form-name": "Tell us about your project",
+              }}
+              validationSchema={Yup.object().shape({
+                name: Yup.string().required("Please enter your name"),
+                email: Yup.string()
+                  .email("Please enter a valid email address")
+                  .required("Please enter your email"),
+                message: Yup.string().required("Please enter a message"),
+              })}
+              onSubmit={handleSubmit}
+            >
+              {({ isSubmitting }) => (
+                <Form
+                  className="contact-form"
+                  netlify-honeypot="bot-field"
+                  data-netlify="true"
+                >
+                  <h2 className="heading-medium contact-form-heading">
+                    {contactFormHeading}
+                  </h2>
+                  <Field type="hidden" name="bot-field" />
+                  <Field type="hidden" name="form-name" />
+                  <Input
+                    placeholder="Your name"
+                    name="name"
+                    label="Your name"
+                  />
+                  <Input
+                    placeholder="Your email"
+                    name="email"
+                    label="Your email"
+                  />
+                  <TextArea
+                    placeholder="Your message"
+                    name="message"
+                    label="Your message"
+                  />
+                  <Button type="submit" disabled={isSubmitting}>
+                    Subscribe
+                  </Button>
+                </Form>
+              )}
+            </Formik>
+
+            <Img
+              className={`contact-photo${isVisible ? " active" : ""}`}
+              fluid={contactFormPhoto.fluid}
+              alt={contactFormPhoto.title}
+            />
+          </>
+        )}
+      </TrackVisibility>
       {latestStories && latestStories.length > 0 && (
         <Grid
           itemCount={latestStories.length}
