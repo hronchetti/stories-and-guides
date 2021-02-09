@@ -1,9 +1,10 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { LayoutPhoto, Seo, Grid, PhotoCard } from "../components"
+import { LayoutPhoto, Seo, Grid, PhotoCard, Contributor } from "../components"
 
 const About = ({ data }) => {
+  console.log(data)
   const { siteUrl } = data.site.siteMetadata
   const {
     heading,
@@ -58,6 +59,19 @@ const About = ({ data }) => {
           to={`/contact/`}
         />
       </Grid>
+      {contributor &&
+        contributor.length > 0 &&
+        contributor.map((contributor) => (
+          <Contributor
+            key={contributor.contentful_id}
+            heading={contributor.heading}
+            content={contributor.content.content}
+            photo={contributor.photo.fluid}
+            photoDesc={contributor.photo.title}
+            linkedInUrl={contributor.linkedInUrl}
+            instagramUrl={contributor.instagramUrl}
+          />
+        ))}
     </LayoutPhoto>
   )
 }
@@ -88,10 +102,18 @@ export const pageQuery = graphql`
         }
         heading
         contentful_id
+        photo {
+          fluid(maxWidth: 2100) {
+            ...GatsbyContentfulFluid
+          }
+          title
+        }
+        linkedInUrl
+        instagramUrl
       }
       sections {
         content {
-          raw
+          content
         }
         heading
         contentful_id

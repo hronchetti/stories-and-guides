@@ -128,7 +128,7 @@ export const pageQuery = graphql`
           id
           contentful_id
           content {
-            raw
+            content
           }
           heading
         }
