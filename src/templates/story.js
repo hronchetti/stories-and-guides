@@ -2,7 +2,7 @@ import React from "react"
 import { graphql } from "gatsby"
 import { format, parseISO } from "date-fns"
 
-import { LayoutPhoto, Seo, PhotoCard } from "../components"
+import { LayoutPhoto, Seo, PhotoCard, Grid } from "../components"
 
 const Story = ({ data }) => {
   console.log(data.story)
@@ -31,9 +31,13 @@ const Story = ({ data }) => {
         url={siteUrl + `/stories/${slug}/`}
         image={seo.image.file.url}
       />
-      <section className="wrapper-height">
-        <h2 className="heading-extra-small">More stories like this</h2>
-        <section className="grid-col-2">
+      {relatedStories && relatedStories.length > 0 && (
+        <Grid
+          items={relatedStories}
+          heading="More stories like this"
+          linkText="All stories"
+          linkTo="/stories/"
+        >
           {relatedStories.map((relatedStory) => (
             <PhotoCard
               key={relatedStory.contentful_id}
@@ -44,8 +48,8 @@ const Story = ({ data }) => {
               date={relatedStory.createdAt}
             />
           ))}
-        </section>
-      </section>
+        </Grid>
+      )}
     </LayoutPhoto>
   )
 }

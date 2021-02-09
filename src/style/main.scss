@@ -14,11 +14,9 @@
 
 // 03 UTILITIES - Re-usable classes using OOCSS logic
 @import "03-utilities/wrappers";
-@import "03-utilities/grids";
 
 // 04 COMPONENTS - Nested component styles in respective component folders
 @import "../components/components";
 
 // 05 PAGES - unique styles related to stand-alone Gatsby pages
-
-// 06 TEMPLATES - unique styles related to Gatsby templates
+@import "./05-pages/index.scss";

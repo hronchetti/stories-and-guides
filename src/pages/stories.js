@@ -17,10 +17,9 @@ const Stories = ({ data }) => {
         url={siteUrl + `/stories/`}
         image={seo.image.file.url}
       />
-      <section className="grid-col-2">
-        {stories &&
-          stories.length > 0 &&
-          stories.map(({ node }) => (
+      {stories && stories.length > 0 && (
+        <section className={stories.length > 2 ? "grid-col-4" : "grid-col-2"}>
+          {stories.map(({ node }) => (
             <PhotoCard
               key={node.contentful_id}
               photo={node.coverPhoto.fluid}
@@ -30,7 +29,8 @@ const Stories = ({ data }) => {
               date={node.createdAt}
             />
           ))}
-      </section>
+        </section>
+      )}
     </Layout>
   )
 }

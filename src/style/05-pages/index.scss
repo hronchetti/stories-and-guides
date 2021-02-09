@@ -1,0 +1,28 @@
+.contact-us-section {
+  @include flex-justify-center;
+
+  .contact-us-section-heading {
+    text-align: center;
+    width: 75%;
+    margin: 0 auto 1.5rem;
+    max-width: 40rem;
+  }
+
+  .contact-us-section-button {
+    width: 100%;
+    @include flex-justify-center;
+
+    .button {
+      display: block;
+      margin: 0 auto;
+    }
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .contact-us-section {
+    .contact-us-section-heading {
+      margin-bottom: 2.5rem;
+    }
+  }
+}

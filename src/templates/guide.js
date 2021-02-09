@@ -1,7 +1,13 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { LayoutPhoto, Seo, PhotoCard, AccordionContainer } from "../components"
+import {
+  LayoutPhoto,
+  Seo,
+  PhotoCard,
+  AccordionContainer,
+  Grid,
+} from "../components"
 
 const Guide = ({ data }) => {
   console.log(data.guide)
@@ -44,41 +50,31 @@ const Guide = ({ data }) => {
         image={seo.image.file.url}
       />
       {subGuides && subGuides.length > 0 && (
-        <section className="wrapper-height">
-          <h2 className="heading-extra-small">Guides</h2>
-          <section
-            className={subGuides.length < 4 ? "grid-col-2" : "grid-col-4"}
-          >
-            {subGuides.map((subGuide) => (
-              <PhotoCard
-                key={subGuide.contentful_id}
-                title={subGuide.name}
-                photo={subGuide.coverPhoto.fluid}
-                photoDesc={subGuide.coverPhoto.title}
-                to={`/guides/${slug}/${subGuide.slug}/`}
-              />
-            ))}
-          </section>
-        </section>
+        <Grid items={featuredStories} heading={`Types of ${name}`}>
+          {subGuides.map((subGuide) => (
+            <PhotoCard
+              key={subGuide.contentful_id}
+              title={subGuide.name}
+              photo={subGuide.coverPhoto.fluid}
+              photoDesc={subGuide.coverPhoto.title}
+              to={`/guides/${slug}/${subGuide.slug}/`}
+            />
+          ))}
+        </Grid>
       )}
       {featuredStories && featuredStories.length > 0 && (
-        <section className="wrapper-height">
-          <h2 className="heading-extra-small">Featured stories from {name}</h2>
-          <section
-            className={featuredStories.length < 4 ? "grid-col-2" : "grid-col-4"}
-          >
-            {featuredStories.map((featuredStory) => (
-              <PhotoCard
-                key={featuredStory.contentful_id}
-                title={featuredStory.title}
-                photo={featuredStory.coverPhoto.fluid}
-                photoDesc={featuredStory.coverPhoto.title}
-                to={`/stories/${featuredStory.slug}/`}
-                date={featuredStory.createdAt}
-              />
-            ))}
-          </section>
-        </section>
+        <Grid items={featuredStories} heading={`Featured ${name} stories`}>
+          {featuredStories.map((featuredStory) => (
+            <PhotoCard
+              key={featuredStory.contentful_id}
+              title={featuredStory.title}
+              photo={featuredStory.coverPhoto.fluid}
+              photoDesc={featuredStory.coverPhoto.title}
+              to={`/stories/${featuredStory.slug}/`}
+              date={featuredStory.createdAt}
+            />
+          ))}
+        </Grid>
       )}
       {accordions &&
         accordions.accordions &&
@@ -89,25 +85,23 @@ const Guide = ({ data }) => {
           />
         )}
       {nonFeaturedStories && nonFeaturedStories.length > 0 && (
-        <section className="wrapper-height">
-          <h2 className="heading-extra-small">All stories from {name}</h2>
-          <section
-            className={
-              nonFeaturedStories.length < 4 ? "grid-col-2" : "grid-col-4"
-            }
-          >
-            {nonFeaturedStories.map((featuredStory) => (
-              <PhotoCard
-                key={featuredStory.contentful_id}
-                title={featuredStory.title}
-                photo={featuredStory.coverPhoto.fluid}
-                photoDesc={featuredStory.coverPhoto.title}
-                to={`/stories/${featuredStory.slug}/`}
-                date={featuredStory.createdAt}
-              />
-            ))}
-          </section>
-        </section>
+        <Grid
+          items={nonFeaturedStories}
+          heading={`All ${name} stories`}
+          linkText="All stories"
+          linkTo="/stories/"
+        >
+          {nonFeaturedStories.map((featuredStory) => (
+            <PhotoCard
+              key={featuredStory.contentful_id}
+              title={featuredStory.title}
+              photo={featuredStory.coverPhoto.fluid}
+              photoDesc={featuredStory.coverPhoto.title}
+              to={`/stories/${featuredStory.slug}/`}
+              date={featuredStory.createdAt}
+            />
+          ))}
+        </Grid>
       )}
     </LayoutPhoto>
   )

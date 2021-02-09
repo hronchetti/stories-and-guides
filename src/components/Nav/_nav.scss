@@ -180,7 +180,7 @@
     }
 
     .nav-main {
-      top: 78px;
+      top: 4.875rem;
 
       &.active {
         .nav-link {
@@ -196,7 +196,7 @@
     }
 
     .nav-secondary {
-      top: 234px;
+      top: 14.5rem;
 
       &.active {
         .nav-link {
@@ -290,10 +290,34 @@
   }
 }
 
+@media only screen and (min-width: 900px) {
+  .nav {
+    .nav-wrapper {
+      .nav-main,
+      .nav-secondary {
+        width: calc(100% - 6rem);
+      }
+    }
+  }
+}
+
 @media only screen and (min-width: 1100px) {
   .nav {
-    padding: 2rem 0;
+    padding: 2rem 0 0 0;
 
+    &.nav-light {
+      .nav-wrapper {
+        .nav-header {
+          .nav-header-logo {
+            svg {
+              path {
+                transition: none;
+              }
+            }
+          }
+        }
+      }
+    }
     .nav-wrapper {
       @include flex-space-between;
       align-items: center;
@@ -380,6 +404,6 @@
 
 @media only screen and (min-width: 1344px) {
   .nav {
-    padding: 3rem 0;
+    padding: 3rem 0 0 0;
   }
 }

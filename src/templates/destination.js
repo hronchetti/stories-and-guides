@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { LayoutPhoto, Seo, PhotoCard, TabContainer } from "../components"
+import { LayoutPhoto, Seo, PhotoCard, TabContainer, Grid } from "../components"
 
 const Destination = ({ data }) => {
   console.log(data.destination)
@@ -47,39 +47,31 @@ const Destination = ({ data }) => {
         image={seo.image.file.url}
       />
       {guides && guides.length > 0 && (
-        <section className="wrapper-height">
-          <h2 className="heading-extra-small">Guides</h2>
-          <section className={guides.length < 4 ? "grid-col-2" : "grid-col-4"}>
-            {guides.map((guide) => (
-              <PhotoCard
-                key={guide.contentful_id}
-                title={guide.name}
-                photo={guide.coverPhoto.fluid}
-                photoDesc={guide.coverPhoto.title}
-                to={`/guides/${guide.slug}/`}
-              />
-            ))}
-          </section>
-        </section>
+        <Grid items={guides} heading="Guides">
+          {guides.map((guide) => (
+            <PhotoCard
+              key={guide.contentful_id}
+              title={guide.name}
+              photo={guide.coverPhoto.fluid}
+              photoDesc={guide.coverPhoto.title}
+              to={`/guides/${guide.slug}/`}
+            />
+          ))}
+        </Grid>
       )}
       {featuredStories && featuredStories.length > 0 && (
-        <section className="wrapper-height">
-          <h2 className="heading-extra-small">Featured stories from {name}</h2>
-          <section
-            className={featuredStories.length < 4 ? "grid-col-2" : "grid-col-4"}
-          >
-            {featuredStories.map((featuredStory) => (
-              <PhotoCard
-                key={featuredStory.contentful_id}
-                title={featuredStory.title}
-                photo={featuredStory.coverPhoto.fluid}
-                photoDesc={featuredStory.coverPhoto.title}
-                to={`/stories/${featuredStory.slug}/`}
-                date={featuredStory.createdAt}
-              />
-            ))}
-          </section>
-        </section>
+        <Grid items={featuredStories} heading={`Featured stories from ${name}`}>
+          {featuredStories.map((featuredStory) => (
+            <PhotoCard
+              key={featuredStory.contentful_id}
+              title={featuredStory.title}
+              photo={featuredStory.coverPhoto.fluid}
+              photoDesc={featuredStory.coverPhoto.title}
+              to={`/stories/${featuredStory.slug}/`}
+              date={featuredStory.createdAt}
+            />
+          ))}
+        </Grid>
       )}
       {usefulInformation &&
         usefulInformation.tabs &&
@@ -90,47 +82,41 @@ const Destination = ({ data }) => {
           </section>
         )}
       {nonFeaturedStories && nonFeaturedStories.length > 0 && (
-        <section className="wrapper-height">
-          <h2 className="heading-extra-small">All stories from {name}</h2>
-          <section
-            className={
-              nonFeaturedStories.length < 4 ? "grid-col-2" : "grid-col-4"
-            }
-          >
-            {nonFeaturedStories.map(({ node }) => (
-              <PhotoCard
-                key={node.contentful_id}
-                title={node.title}
-                photo={node.coverPhoto.fluid}
-                photoDesc={node.coverPhoto.title}
-                to={`/stories/${node.slug}/`}
-                date={node.createdAt}
-              />
-            ))}
-          </section>
-        </section>
+        <Grid
+          items={nonFeaturedStories}
+          heading={`All stories from ${name}`}
+          linkText="All stories"
+          linkTo="/stories/"
+        >
+          {nonFeaturedStories.map(({ node }) => (
+            <PhotoCard
+              key={node.contentful_id}
+              title={node.title}
+              photo={node.coverPhoto.fluid}
+              photoDesc={node.coverPhoto.title}
+              to={`/stories/${node.slug}/`}
+              date={node.createdAt}
+            />
+          ))}
+        </Grid>
       )}
       {otherDestinations && otherDestinations.length > 0 && (
-        <section className="wrapper-height">
-          <h2 className="heading-extra-small">
-            Other destinations in {region}
-          </h2>
-          <section
-            className={
-              otherDestinations.length < 4 ? "grid-col-2" : "grid-col-4"
-            }
-          >
-            {otherDestinations.map(({ node }) => (
-              <PhotoCard
-                key={node.contentful_id}
-                title={node.name}
-                photo={node.coverPhoto.fluid}
-                photoDesc={node.coverPhoto.title}
-                to={`/destinations/${node.slug}/`}
-              />
-            ))}
-          </section>
-        </section>
+        <Grid
+          items={nonFeaturedStories}
+          heading={` Other destinations in ${region}`}
+          linkText="All destinations"
+          linkTo="/destinations/"
+        >
+          {otherDestinations.map(({ node }) => (
+            <PhotoCard
+              key={node.contentful_id}
+              title={node.name}
+              photo={node.coverPhoto.fluid}
+              photoDesc={node.coverPhoto.title}
+              to={`/destinations/${node.slug}/`}
+            />
+          ))}
+        </Grid>
       )}
     </LayoutPhoto>
   )

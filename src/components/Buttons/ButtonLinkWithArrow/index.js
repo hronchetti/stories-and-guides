@@ -2,13 +2,13 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
-export const ButtonLink = ({ to, children }) => (
-  <Link to={to} className="button">
+export const ButtonLinkWithArrow = ({ to, children }) => (
+  <Link to={to} className="button-link-with-arrow">
     {children}
   </Link>
 )
 
-ButtonLink.propTypes = {
+ButtonLinkWithArrow.propTypes = {
   to: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
 }

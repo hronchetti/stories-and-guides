@@ -17,10 +17,9 @@ const Guides = ({ data }) => {
         url={siteUrl + `/guides/`}
         image={seo.image.file.url}
       />
-      <section className="grid-col-2">
-        {guides &&
-          guides.length > 0 &&
-          guides.map(({ node }) => (
+      {guides && guides.length > 0 && (
+        <section className={guides.length > 2 ? "grid-col-4" : "grid-col-2"}>
+          {guides.map(({ node }) => (
             <PhotoCard
               key={node.contentful_id}
               photo={node.coverPhoto.fluid}
@@ -29,7 +28,8 @@ const Guides = ({ data }) => {
               to={`/guides/${node.slug}/`}
             />
           ))}
-      </section>
+        </section>
+      )}
     </Layout>
   )
 }

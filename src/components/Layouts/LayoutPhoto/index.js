@@ -28,14 +28,18 @@ export const LayoutPhoto = ({
       once
     >
       {({ isVisible }) => (
-        <div className={isVisible ? "header-inner active" : "header-inner"}>
+        <div
+          className={`header-inner layout-photo${isVisible ? " active" : ""}`}
+        >
           <h1 className="heading-extra-large">{heading}</h1>
-          {date && <span>{date}</span>}
-          <p className="heading-small">{introduction}</p>
+          {date && <span className="layout-photo-date">{date}</span>}
+          <p className="heading-small layout-photo-introduction">
+            {introduction}
+          </p>
         </div>
       )}
     </TrackVisibility>
-    <main className="wrapper-width layout-photo">{children}</main>
+    <main className="wrapper-width">{children}</main>
     <Footer />
   </>
 )

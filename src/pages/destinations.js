@@ -17,10 +17,11 @@ const Destinations = ({ data }) => {
         url={siteUrl + `/destinations/`}
         image={seo.image.file.url}
       />
-      <section className="grid-col-2">
-        {destinations &&
-          destinations.length > 0 &&
-          destinations.map(({ node }) => (
+      {destinations && destinations.length > 0 && (
+        <section
+          className={destinations.length > 2 ? "grid-col-4" : "grid-col-2"}
+        >
+          {destinations.map(({ node }) => (
             <PhotoCard
               key={node.contentful_id}
               photo={node.coverPhoto.fluid}
@@ -29,7 +30,8 @@ const Destinations = ({ data }) => {
               to={`/destinations/${node.slug}/`}
             />
           ))}
-      </section>
+        </section>
+      )}
     </Layout>
   )
 }
