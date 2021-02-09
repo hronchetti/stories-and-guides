@@ -2,12 +2,12 @@
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
-  bottom: -5rem;
+  bottom: -15rem;
   width: calc(100% - 3rem);
   max-width: 24rem;
   background-color: black;
   color: white;
-  transition: bottom 300ms ease-in;
+  transition: bottom 800ms ease-in;
   display: grid;
   grid-template-columns: 1fr 2.5rem;
   padding: 0.25rem 0.5rem;
@@ -39,6 +39,20 @@
     .toast-body-content {
       padding: 0.4325rem 0.5rem 0.625rem 0;
       font: 300 1rem/1.5rem $font;
+
+      a {
+        color: white;
+
+        &:focus {
+          text-decoration: none;
+        }
+
+        @media (hover: hover) {
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
     }
   }
 

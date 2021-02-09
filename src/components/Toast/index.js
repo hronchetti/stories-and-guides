@@ -11,7 +11,10 @@ export const Toast = ({ dismissFunc, type, message, isVisible }) => (
       <span
         className={`toast-body-icon ${type ? "icon-tick" : "icon-close"}`}
       />
-      <span className="toast-body-content">{message}</span>
+      <span
+        className="toast-body-content"
+        dangerouslySetInnerHTML={{ __html: message }}
+      />
     </div>
     <button className="toast-dismiss-button" onClick={dismissFunc}>
       <span className="hidden">Close</span>

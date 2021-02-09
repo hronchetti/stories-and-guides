@@ -2,15 +2,43 @@ import React from "react"
 import { Link } from "gatsby"
 import { Formik, Form } from "formik"
 import * as Yup from "yup"
+import addToMailchimp from "gatsby-plugin-mailchimp"
 
-import { Input, Button } from ".."
+import { Input, Button, Toast } from ".."
 
 export const Footer = () => {
+  const [toast, setToast] = React.useState({
+    type: true,
+    message: "Message sent, we'll be in contact soon",
+    isVisible: false,
+  })
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     })
+  }
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    const response = await addToMailchimp(values.email)
+
+    try {
+      setToast({
+        type: true,
+        isVisible: true,
+        message: response.msg,
+      })
+      setSubmitting(false)
+      resetForm({})
+    } catch (error) {
+      console.log(error)
+      setToast({
+        type: true,
+        isVisible: true,
+        message: response.msg,
+      })
+    }
   }
 
   return (
@@ -63,10 +91,7 @@ export const Footer = () => {
                   .email("Please enter a valid email address")
                   .required("Please enter your email"),
               })}
-              onSubmit={(values, { setSubmitting }) => {
-                console.log(values)
-                setSubmitting(false)
-              }}
+              onSubmit={handleSubmit}
             >
               {({ isSubmitting }) => (
                 <Form className="footer-form">
@@ -105,6 +130,14 @@ export const Footer = () => {
           </div>
         </section>
       </footer>
+      <Toast
+        type={toast.type}
+        isVisible={toast.isVisible}
+        message={toast.message}
+        dismissFunc={() =>
+          setToast((toast) => ({ ...toast, isVisible: false }))
+        }
+      />
     </>
   )
 }

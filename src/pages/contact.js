@@ -35,8 +35,8 @@ const Contact = ({ data }) => {
       await axios({
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        url: "/",
         data: stringify(values),
+        url: "/",
       })
       // Success
       setToast({
@@ -47,7 +47,7 @@ const Contact = ({ data }) => {
       resetForm({})
     } catch (e) {
       // Failed
-      console.log(e, e.response)
+      console.log(e.response)
       setToast({
         type: false,
         isVisible: true,
@@ -74,7 +74,7 @@ const Contact = ({ data }) => {
                 email: "",
                 message: "",
                 "bot-field": "",
-                "form-name": "Tell us about your project",
+                "form-name": "Contact form",
               }}
               validationSchema={Yup.object().shape({
                 name: Yup.string().required("Please enter your name"),
@@ -90,6 +90,8 @@ const Contact = ({ data }) => {
                   className="contact-form"
                   netlify-honeypot="bot-field"
                   data-netlify="true"
+                  method="POST"
+                  name="Contact form"
                 >
                   <h2 className="heading-medium contact-form-heading">
                     {contactFormHeading}

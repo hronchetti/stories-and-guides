@@ -23,6 +23,11 @@ module.exports = {
     siteUrl: "https://storiesandguides.com/",
   },
   plugins: [
+    "gatsby-plugin-sass",
+    "gatsby-plugin-sharp",
+    "gatsby-plugin-react-helmet",
+    "gatsby-plugin-sitemap",
+    "gatsby-transformer-sharp",
     {
       resolve: "gatsby-source-contentful",
       options: {
@@ -30,10 +35,6 @@ module.exports = {
         spaceId: "2sjv5arbct1a",
       },
     },
-    "gatsby-plugin-sass",
-    "gatsby-plugin-sharp",
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sitemap",
     {
       resolve: "gatsby-plugin-react-svg",
       options: {
@@ -54,7 +55,13 @@ module.exports = {
         icon: "src/images/icon.png",
       },
     },
-    "gatsby-transformer-sharp",
+
+    {
+      resolve: `gatsby-plugin-mailchimp`,
+      options: {
+        endpoint: `https://hotmail.us9.list-manage.com/subscribe/post?u=e9728b56d79222d6a4f34a26d&amp;id=eec00e0717`, // add your MC list endpoint here; see instructions below
+      },
+    },
     {
       resolve: "gatsby-source-filesystem",
       options: {
