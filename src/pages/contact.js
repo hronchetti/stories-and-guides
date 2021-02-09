@@ -1,11 +1,61 @@
 import React from "react"
 import { graphql } from "gatsby"
+import Img from "gatsby-image"
+import { Formik } from "formik"
+import * as Yup from "yup"
+import stringify from "qs-stringify"
+import axios from "axios"
 
-import { Layout, Seo } from "../components"
+import {
+  Button,
+  Form,
+  Grid,
+  Input,
+  Layout,
+  PhotoCard,
+  Seo,
+  TextArea,
+  Toast,
+} from "../components"
 
 const Contact = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
   const { seo, contactFormHeading, contactFormPhoto } = data.contactPage
+  const latestStories = data.latestStories.edges
+
+  const [toast, setToast] = React.useState({
+    type: true,
+    message: "Message sent, we'll be in contact soon",
+    isVisible: false,
+  })
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    try {
+      await axios({
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        url: "/",
+        data: stringify(values),
+      })
+      // Success
+      setToast({
+        type: true,
+        isVisible: true,
+        message: "Message sent, we'll be in contact soon",
+      })
+      resetForm({})
+    } catch (e) {
+      // Failed
+      console.log(e, e.response)
+      setToast({
+        type: false,
+        isVisible: true,
+        message: "Could not send message, please try again",
+      })
+    }
+    setSubmitting(false)
+  }
+
   return (
     <Layout heading="Contact">
       <Seo
@@ -13,6 +63,73 @@ const Contact = ({ data }) => {
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/contact/`}
         image={seo.image.file.url}
+      />
+      <section className="contact">
+        <Formik
+          initialValues={{
+            name: "",
+            email: "",
+            message: "",
+          }}
+          validationSchema={Yup.object().shape({
+            name: Yup.string().required("Please enter your name"),
+            email: Yup.string()
+              .email("Please enter a valid email address")
+              .required("Please enter your email"),
+            message: Yup.string().required("Please enter a message"),
+          })}
+          onSubmit={handleSubmit}
+        >
+          {({ isSubmitting }) => (
+            <Form className="contact-form">
+              <h2 className="heading-medium contact-form-heading">
+                {contactFormHeading}
+              </h2>
+              <Input placeholder="Your name" name="name" label="Your name" />
+              <Input placeholder="Your email" name="email" label="Your email" />
+              <TextArea
+                placeholder="Your message"
+                name="message"
+                label="Your message"
+              />
+              <Button type="submit" disabled={isSubmitting}>
+                Subscribe
+              </Button>
+            </Form>
+          )}
+        </Formik>
+        <Img
+          className="contact-photo"
+          fluid={contactFormPhoto.fluid}
+          alt={contactFormPhoto.title}
+        />
+      </section>
+      {latestStories && latestStories.length > 0 && (
+        <Grid
+          itemCount={latestStories.length}
+          heading="Latest from the blog"
+          linkText="All stories"
+          linkTo="/stories/"
+        >
+          {latestStories.map(({ node }) => (
+            <PhotoCard
+              key={node.contentful_id}
+              title={node.title}
+              photo={node.coverPhoto.fluid}
+              photoDesc={node.coverPhoto.title}
+              to={`/stories/${node.slug}/`}
+              date={node.createdAt}
+            />
+          ))}
+        </Grid>
+      )}
+      <Toast
+        type={toast.type}
+        isVisible={toast.isVisible}
+        message={toast.message}
+        dismissFunc={() =>
+          setToast((toast) => ({ ...toast, isVisible: false }))
+        }
       />
     </Layout>
   )
@@ -44,6 +161,25 @@ export const pageQuery = graphql`
           file {
             url
           }
+        }
+      }
+    }
+    latestStories: allContentfulStories(
+      sort: { order: ASC, fields: createdAt }
+      limit: 2
+    ) {
+      edges {
+        node {
+          contentful_id
+          slug
+          coverPhoto {
+            title
+            fluid(maxWidth: 2100) {
+              ...GatsbyContentfulFluid
+            }
+          }
+          title
+          createdAt
         }
       }
     }

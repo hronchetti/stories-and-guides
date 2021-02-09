@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { LayoutPhoto, Seo } from "../components"
+import { LayoutPhoto, Seo, Grid, PhotoCard } from "../components"
 
 const About = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
@@ -13,6 +13,11 @@ const About = ({ data }) => {
     contributor,
     sections,
   } = data.aboutPage
+
+  const contactPagePhoto = data.contactPage.contactFormPhoto
+  const latestStory = data.story.edges[0].node
+  const firstDestination = data.destination.edges[0].node
+  const firstGuide = data.guide.edges[0].node
 
   return (
     <LayoutPhoto
@@ -27,6 +32,32 @@ const About = ({ data }) => {
         url={siteUrl + `/about/`}
         image={seo.image.file.url}
       />
+      <Grid itemCount={4} heading="Navigating the blog">
+        <PhotoCard
+          title="Guides"
+          photo={firstGuide.coverPhoto.fluid}
+          photoDesc={firstGuide.coverPhoto.title}
+          to={`/guides/`}
+        />
+        <PhotoCard
+          title="Destinations"
+          photo={firstDestination.coverPhoto.fluid}
+          photoDesc={firstDestination.coverPhoto.title}
+          to={`/destinations/`}
+        />
+        <PhotoCard
+          title="Stories"
+          photo={latestStory.coverPhoto.fluid}
+          photoDesc={latestStory.coverPhoto.title}
+          to={`/stories/`}
+        />
+        <PhotoCard
+          title="Contact"
+          photo={contactPagePhoto.fluid}
+          photoDesc={contactPagePhoto.title}
+          to={`/contact/`}
+        />
+      </Grid>
     </LayoutPhoto>
   )
 }
@@ -73,6 +104,56 @@ export const pageQuery = graphql`
         image {
           file {
             url
+          }
+        }
+      }
+    }
+    contactPage: contentfulContactPage {
+      contactFormPhoto {
+        fluid(maxWidth: 2100) {
+          ...GatsbyContentfulFluid
+        }
+        title
+      }
+    }
+    story: allContentfulStories(
+      sort: { order: ASC, fields: createdAt }
+      limit: 1
+    ) {
+      edges {
+        node {
+          coverPhoto {
+            title
+            fluid(maxWidth: 2100) {
+              ...GatsbyContentfulFluid
+            }
+          }
+        }
+      }
+    }
+    destination: allContentfulDestinations(
+      sort: { order: ASC, fields: name }
+      limit: 1
+    ) {
+      edges {
+        node {
+          coverPhoto {
+            title
+            fluid(maxWidth: 2100) {
+              ...GatsbyContentfulFluid
+            }
+          }
+        }
+      }
+    }
+    guide: allContentfulGuides(sort: { order: ASC, fields: name }, limit: 1) {
+      edges {
+        node {
+          coverPhoto {
+            title
+            fluid(maxWidth: 2100) {
+              ...GatsbyContentfulFluid
+            }
           }
         }
       }

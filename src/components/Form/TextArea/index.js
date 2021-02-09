@@ -4,40 +4,40 @@ import { useField } from "formik"
 
 import { ErrorText } from ".."
 
-export const TextArea = ({ label, optional, name, rows }) => {
+export const TextArea = ({ label, name, rows, placeholder }) => {
   const [field, meta] = useField(name)
 
   return (
-    <div
-      className={`form-element-full-width input${
-        meta.touched && meta.error ? " form-error" : ""
-      }`}
-    >
-      <Label name={name} optional={optional}>
+    <div className={`input${meta.touched && meta.error ? " form-error" : ""}`}>
+      <label className="input-label" htmlFor={name}>
         {label}
-      </Label>
-      <textarea
-        className={`input-field${
-          meta.touched && meta.error ? " input-error" : ""
-        }`}
-        rows={rows}
-        name={name}
-        id={name}
-        {...field}
-      />
+      </label>
+      <div className="input-field-wrapper">
+        <textarea
+          className={`input-field${
+            meta.touched && meta.error ? " input-error" : ""
+          }`}
+          placeholder={placeholder}
+          rows={rows}
+          name={name}
+          id={name}
+          {...field}
+        />
+        <span className="input-field-selector" />
+      </div>
       <ErrorText>{meta.touched ? meta.error : ""}</ErrorText>
     </div>
   )
 }
 
 TextArea.defaultProps = {
-  optional: false,
   rows: 4,
+  placeholder: "",
 }
 
 TextArea.propTypes = {
-  name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  optional: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   rows: PropTypes.number,
 }

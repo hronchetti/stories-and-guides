@@ -32,7 +32,7 @@ const IndexPage = ({ data }) => {
       />
       {latestStories && latestStories.length > 0 && (
         <Grid
-          items={latestStories}
+          itemCount={latestStories.length}
           heading="Latest from the blog"
           linkText="All stories"
           linkTo="/stories/"
@@ -51,7 +51,7 @@ const IndexPage = ({ data }) => {
       )}
       {topGuides && topGuides.length > 0 && (
         <Grid
-          items={topGuides}
+          itemCount={topGuides.length}
           heading="Top guides"
           linkText="All guides"
           linkTo="/guides/"
@@ -69,7 +69,7 @@ const IndexPage = ({ data }) => {
       )}
       {topDestinations && topDestinations.length > 0 && (
         <Grid
-          items={topDestinations}
+          itemCount={topDestinations.length}
           heading="Top destinations"
           linkText="All destinations"
           linkTo="/destinations/"

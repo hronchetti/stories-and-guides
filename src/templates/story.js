@@ -33,7 +33,7 @@ const Story = ({ data }) => {
       />
       {relatedStories && relatedStories.length > 0 && (
         <Grid
-          items={relatedStories}
+          itemCount={relatedStories.length}
           heading="More stories like this"
           linkText="All stories"
           linkTo="/stories/"

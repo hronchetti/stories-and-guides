@@ -62,7 +62,7 @@ export const pageQuery = graphql`
       }
     }
     destinations: allContentfulDestinations(
-      sort: { order: ASC, fields: createdAt }
+      sort: { order: ASC, fields: name }
     ) {
       edges {
         node {

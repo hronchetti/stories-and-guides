@@ -52,7 +52,6 @@ export const Footer = () => {
                 <Link to="/privacy-policy/">Privacy policy</Link>
               </li>
             </ul>
-
             <Formik
               initialValues={{
                 name: "",

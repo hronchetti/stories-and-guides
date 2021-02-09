@@ -47,7 +47,7 @@ const Destination = ({ data }) => {
         image={seo.image.file.url}
       />
       {guides && guides.length > 0 && (
-        <Grid items={guides} heading="Guides">
+        <Grid itemCount={guides.length} heading="Guides">
           {guides.map((guide) => (
             <PhotoCard
               key={guide.contentful_id}
@@ -60,7 +60,10 @@ const Destination = ({ data }) => {
         </Grid>
       )}
       {featuredStories && featuredStories.length > 0 && (
-        <Grid items={featuredStories} heading={`Featured stories from ${name}`}>
+        <Grid
+          itemCount={featuredStories.length}
+          heading={`Featured stories from ${name}`}
+        >
           {featuredStories.map((featuredStory) => (
             <PhotoCard
               key={featuredStory.contentful_id}
@@ -83,7 +86,7 @@ const Destination = ({ data }) => {
         )}
       {nonFeaturedStories && nonFeaturedStories.length > 0 && (
         <Grid
-          items={nonFeaturedStories}
+          itemCount={nonFeaturedStories.length}
           heading={`All stories from ${name}`}
           linkText="All stories"
           linkTo="/stories/"
@@ -102,7 +105,7 @@ const Destination = ({ data }) => {
       )}
       {otherDestinations && otherDestinations.length > 0 && (
         <Grid
-          items={nonFeaturedStories}
+          itemCount={nonFeaturedStories.length}
           heading={` Other destinations in ${region}`}
           linkText="All destinations"
           linkTo="/destinations/"

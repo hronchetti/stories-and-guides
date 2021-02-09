@@ -50,7 +50,7 @@ const Guide = ({ data }) => {
         image={seo.image.file.url}
       />
       {subGuides && subGuides.length > 0 && (
-        <Grid items={featuredStories} heading={`Types of ${name}`}>
+        <Grid itemCount={featuredStories.length} heading={`Types of ${name}`}>
           {subGuides.map((subGuide) => (
             <PhotoCard
               key={subGuide.contentful_id}
@@ -63,7 +63,10 @@ const Guide = ({ data }) => {
         </Grid>
       )}
       {featuredStories && featuredStories.length > 0 && (
-        <Grid items={featuredStories} heading={`Featured ${name} stories`}>
+        <Grid
+          itemCount={featuredStories.length}
+          heading={`Featured ${name} stories`}
+        >
           {featuredStories.map((featuredStory) => (
             <PhotoCard
               key={featuredStory.contentful_id}
@@ -86,7 +89,7 @@ const Guide = ({ data }) => {
         )}
       {nonFeaturedStories && nonFeaturedStories.length > 0 && (
         <Grid
-          items={nonFeaturedStories}
+          itemCount={nonFeaturedStories.length}
           heading={`All ${name} stories`}
           linkText="All stories"
           linkTo="/stories/"

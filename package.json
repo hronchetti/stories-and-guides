@@ -16,6 +16,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "date-fns": "^2.16.1",
     "formik": "^2.2.6",
     "gatsby": "^2.26.1",
@@ -31,6 +32,7 @@
     "gatsby-source-filesystem": "^2.10.0",
     "gatsby-transformer-sharp": "^2.11.0",
     "prop-types": "^15.7.2",
+    "qs-stringify": "^1.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-helmet": "^6.1.0",

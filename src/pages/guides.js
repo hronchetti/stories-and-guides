@@ -59,7 +59,7 @@ export const pageQuery = graphql`
         }
       }
     }
-    guides: allContentfulGuides(sort: { order: ASC, fields: createdAt }) {
+    guides: allContentfulGuides(sort: { order: ASC, fields: name }) {
       edges {
         node {
           contentful_id

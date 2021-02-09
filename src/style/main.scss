@@ -13,10 +13,12 @@
 @import "02-global/site";
 
 // 03 UTILITIES - Re-usable classes using OOCSS logic
+@import "03-utilities/hidden";
 @import "03-utilities/wrappers";
 
 // 04 COMPONENTS - Nested component styles in respective component folders
 @import "../components/components";
 
 // 05 PAGES - unique styles related to stand-alone Gatsby pages
-@import "./05-pages/index.scss";
+@import "./05-pages/contact";
+@import "./05-pages/index";
