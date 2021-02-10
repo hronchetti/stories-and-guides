@@ -52,7 +52,7 @@ const IndexPage = ({ data }) => {
       {topGuides && topGuides.length > 0 && (
         <Grid
           itemCount={topGuides.length}
-          heading="Top guides"
+          heading="Guides"
           linkText="All guides"
           linkTo="/guides/"
         >
@@ -70,7 +70,7 @@ const IndexPage = ({ data }) => {
       {topDestinations && topDestinations.length > 0 && (
         <Grid
           itemCount={topDestinations.length}
-          heading="Top destinations"
+          heading="Destinations"
           linkText="All destinations"
           linkTo="/destinations/"
         >

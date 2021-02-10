@@ -2,7 +2,18 @@ import React from "react"
 import { graphql } from "gatsby"
 import { format, parseISO } from "date-fns"
 
-import { LayoutPhoto, Seo, PhotoCard, Grid } from "../components"
+import {
+  AccordionsSection,
+  Grid,
+  LayoutPhoto,
+  PhotoCard,
+  PhotoGallerySection,
+  PhotosSection,
+  QuoteSection,
+  Seo,
+  SocialSignOff,
+  TextSection,
+} from "../components"
 
 const Story = ({ data }) => {
   console.log(data.story)
@@ -13,6 +24,7 @@ const Story = ({ data }) => {
     createdAt,
     introduction,
     relatedStories,
+    sections,
     seo,
     slug,
     title,
@@ -31,6 +43,34 @@ const Story = ({ data }) => {
         url={siteUrl + `/stories/${slug}/`}
         image={seo.image.file.url}
       />
+      {sections &&
+        sections.length > 0 &&
+        sections.map((section) =>
+          section.__typename === "ContentfulAccordionGroups" ? (
+            <AccordionsSection
+              key={section.contentful_id}
+              heading={section.heading}
+              accordions={section.accordions}
+            />
+          ) : section.__typename === "ContentfulStoriesPhotoGalleries" ? (
+            <PhotoGallerySection key={section.contentful_id} />
+          ) : section.__typename === "ContentfulStoriesPhotosSection" ? (
+            <PhotosSection
+              key={section.contentful_id}
+              photos={section.photos}
+              wide={section.wide}
+            />
+          ) : section.__typename === "ContentfulStoriesQuoteSections" ? (
+            <QuoteSection key={section.contentful_id} />
+          ) : section.__typename === "ContentfulStoriesTextSection" ? (
+            <TextSection
+              key={section.contentful_id}
+              heading={section.heading}
+              content={section.content.content}
+            />
+          ) : null
+        )}
+      <SocialSignOff />
       {relatedStories && relatedStories.length > 0 && (
         <Grid
           itemCount={relatedStories.length}
@@ -107,6 +147,7 @@ export const pageQuery = graphql`
             title
             contentful_id
           }
+          contentful_id
         }
         ... on ContentfulStoriesPhotosSection {
           photos {
@@ -116,6 +157,8 @@ export const pageQuery = graphql`
             }
             title
           }
+          wide
+          contentful_id
         }
         ... on ContentfulStoriesQuoteSections {
           author
@@ -125,12 +168,11 @@ export const pageQuery = graphql`
           contentful_id
         }
         ... on ContentfulStoriesTextSection {
-          id
-          contentful_id
           content {
             content
           }
           heading
+          contentful_id
         }
       }
       relatedStories {

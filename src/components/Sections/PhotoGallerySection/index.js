@@ -1,5 +1,5 @@
 import React from "react"
 
-export const Accordion = () => {
+export const PhotoGallerySection = () => {
   return <div></div>
 }

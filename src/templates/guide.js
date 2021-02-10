@@ -5,7 +5,7 @@ import {
   LayoutPhoto,
   Seo,
   PhotoCard,
-  AccordionContainer,
+  AccordionsSection,
   Grid,
 } from "../components"
 
@@ -82,7 +82,7 @@ const Guide = ({ data }) => {
       {accordions &&
         accordions.accordions &&
         accordions.accordions.length > 0 && (
-          <AccordionContainer
+          <AccordionsSection
             heading={accordions.heading}
             accordions={accordions.accordions}
           />

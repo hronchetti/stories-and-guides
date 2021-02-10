@@ -42,9 +42,14 @@ body {
 }
 
 @media only screen and (min-width: 900px) {
+  .heading-medium {
+    font-size: 1.375rem;
+    line-height: 2.125rem;
+  }
+
   .heading-small {
     font-size: 1.375rem;
-    line-height: 2.25rem;
+    line-height: 2.125rem;
   }
 
   .heading-extra-small {

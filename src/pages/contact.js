@@ -17,6 +17,7 @@ import {
   Seo,
   TextArea,
   Toast,
+  SocialSignOff,
 } from "../components"
 
 const Contact = ({ data }) => {
@@ -147,6 +148,7 @@ const Contact = ({ data }) => {
           ))}
         </Grid>
       )}
+      <SocialSignOff />
       <Toast
         type={toast.type}
         isVisible={toast.isVisible}

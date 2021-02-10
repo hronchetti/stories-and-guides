@@ -15,12 +15,7 @@ export const LayoutPhoto = ({
 }) => (
   <>
     <Nav colour="light" />
-    <Img
-      className="layout-photo-photo"
-      fluid={photo}
-      alt={photoDesc}
-      title={photoDesc}
-    />
+    <Img className="layout-photo-photo" fluid={photo} alt={photoDesc} />
     <TrackVisibility
       tag="header"
       className="wrapper-width header layout-photo-header"

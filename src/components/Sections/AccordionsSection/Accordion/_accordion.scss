@@ -1,0 +1,94 @@
+.accordion {
+  border-bottom: 1px solid #ebe8e6;
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+
+  .accordion-header {
+    @include button-preset;
+    position: relative;
+    display: block;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    padding: 1.25rem;
+    transition: background-color 200ms ease-in-out;
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: rgba($beige-dark, 0.05);
+      }
+    }
+
+    &.active {
+      background-color: rgba($beige-dark, 0.05);
+
+      &:after {
+        transform: rotate(270deg);
+      }
+    }
+
+    &:after {
+      display: block;
+      font: normal 1.5rem/1.5rem "icomoon";
+      content: "\e900";
+      position: absolute;
+      right: 1.25rem;
+      top: 1.25rem;
+      transform: rotate(90deg);
+      transition: transform 500ms ease-in-out;
+      color: $beige-medium;
+    }
+  }
+
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 500ms ease-in-out;
+
+    .accordion-body-content {
+      padding: 0 1.25rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .accordion {
+    .accordion-header {
+      padding: 1.5rem 2rem;
+
+      &:after {
+        right: 2rem;
+        top: 1.5rem;
+        font-size: 2rem;
+        line-height: 2rem;
+      }
+    }
+
+    .accordion-body {
+      .accordion-body-content {
+        padding: 0.5rem 2rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .accordion {
+    .accordion-header {
+      padding: 2.25rem 3rem;
+
+      &:after {
+        right: 3rem;
+        top: 2.25rem;
+      }
+    }
+
+    .accordion-body {
+      .accordion-body-content {
+        padding: 1.5rem 3rem 1.25rem;
+      }
+    }
+  }
+}

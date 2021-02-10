@@ -1,7 +1,16 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { LayoutPhoto, Seo, Grid, PhotoCard, Contributor } from "../components"
+import {
+  Contributor,
+  Grid,
+  LayoutPhoto,
+  PhotoCard,
+  PhotosSection,
+  Seo,
+  SocialSignOff,
+  TextSection,
+} from "../components"
 
 const About = ({ data }) => {
   console.log(data)
@@ -72,6 +81,24 @@ const About = ({ data }) => {
             instagramUrl={contributor.instagramUrl}
           />
         ))}
+      {sections &&
+        sections.length > 0 &&
+        sections.map((section) =>
+          section.__typename === "ContentfulStoriesTextSection" ? (
+            <TextSection
+              key={section.contentful_id}
+              heading={section.heading}
+              content={section.content.content}
+            />
+          ) : section.__typename === "ContentfulStoriesPhotosSection" ? (
+            <PhotosSection
+              key={section.contentful_id}
+              photos={section.photos}
+              wide={section.wide}
+            />
+          ) : null
+        )}
+      <SocialSignOff />
     </LayoutPhoto>
   )
 }
@@ -112,11 +139,24 @@ export const pageQuery = graphql`
         instagramUrl
       }
       sections {
-        content {
-          content
+        ... on ContentfulStoriesPhotosSection {
+          contentful_id
+          photos {
+            contentful_id
+            fluid(maxWidth: 2100) {
+              ...GatsbyContentfulFluid
+            }
+            title
+          }
+          wide
         }
-        heading
-        contentful_id
+        ... on ContentfulStoriesTextSection {
+          content {
+            content
+          }
+          heading
+          contentful_id
+        }
       }
       seo {
         metaDescription {

@@ -1,0 +1,68 @@
+.social-sign-off {
+  background-color: $grey-light;
+  text-align: center;
+  margin: 0 auto;
+  max-width: 42rem;
+  padding: 1.5rem 1.5rem 2rem 1.5rem;
+
+  .social-sign-off-heading {
+    max-width: 19rem;
+    margin: 0 auto;
+  }
+
+  .social-sign-off-links {
+    @include flex-justify-center;
+    margin-top: 1rem;
+
+    a {
+      background-color: $beige-light-super;
+      transition: all 200ms ease-in;
+      box-shadow: none;
+      display: block;
+      text-decoration: none;
+      color: black;
+      margin: 0 0.5rem;
+
+      &:focus {
+        @include shadow-soft;
+        background-color: white;
+      }
+
+      @media (hover: hover) {
+        &:hover {
+          @include shadow-soft;
+          background-color: white;
+        }
+      }
+
+      .icon-facebook,
+      .icon-instagram,
+      .icon-linked-in,
+      .icon-twitter {
+        padding: 0.5rem;
+        display: block;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .social-sign-off {
+    padding: 2.5rem 3rem 3.5rem 3rem;
+
+    .social-sign-off-links {
+      margin-top: 2rem;
+
+      a {
+        margin: 0 0.625rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .social-sign-off-wrapper {
+    padding-top: 10rem;
+  }
+}
