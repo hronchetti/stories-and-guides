@@ -9,21 +9,16 @@ import {
   AccordionContainer,
 } from "../components"
 
-const SubGuide = ({ data }) => {
-  console.log(data.subGuide)
+const DestinationGuide = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
-
   const {
-    accordions,
-    coverPhoto,
-    featuredStories,
-    introduction,
     name,
-    seo,
     slug,
+    seo,
+    introduction,
+    coverPhoto,
     destinationSubGuides,
-  } = data.subGuide
-
+  } = data.destinationGuide
   return (
     <LayoutPhoto
       heading={name}
@@ -48,7 +43,7 @@ const SubGuide = ({ data }) => {
               title={destinationSubGuide.name}
               photo={destinationSubGuide.coverPhoto.fluid}
               photoDesc={destinationSubGuide.coverPhoto.title}
-              to={`/guides/${data.guide.slug}/${slug}/${destinationSubGuide.slug}/`}
+              to={`/guides/${data.guide.slug}/${destinationSubGuide.guides___sub_guides[0].slug}/${destinationSubGuide.slug}/`}
             />
           ))}
         </Grid>
@@ -57,16 +52,18 @@ const SubGuide = ({ data }) => {
   )
 }
 
-export default SubGuide
+export default DestinationGuide
 
 export const pageQuery = graphql`
-  query getSubGuide($id: String!, $guideId: String!) {
+  query getDestinationGuide($id: String!, $guideId: String!) {
     site {
       siteMetadata {
         siteUrl
       }
     }
-    subGuide: contentfulGuidesSubGuides(contentful_id: { eq: $id }) {
+    destinationGuide: contentfulGuidesDestinationGuides(
+      contentful_id: { eq: $id }
+    ) {
       contentful_id
       coverPhoto {
         fluid(maxWidth: 2100) {
@@ -92,14 +89,17 @@ export const pageQuery = graphql`
       }
       destinationSubGuides {
         contentful_id
+        name
         slug
         coverPhoto {
           title
-          fluid(maxWidth: 2100) {
+          fluid(maxWidth: 1000) {
             ...GatsbyContentfulFluid
           }
         }
-        name
+        guides___sub_guides {
+          slug
+        }
       }
       featuredStories {
         contentful_id

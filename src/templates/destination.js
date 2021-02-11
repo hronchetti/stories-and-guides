@@ -10,7 +10,7 @@ const Destination = ({ data }) => {
   const {
     coverPhoto,
     featuredStories,
-    guides,
+    destinationGuides,
     introduction,
     name,
     region,
@@ -46,9 +46,9 @@ const Destination = ({ data }) => {
         url={siteUrl + `/destinations/${slug}`}
         image={seo.image.file.url}
       />
-      {guides && guides.length > 0 && (
-        <Grid itemCount={guides.length} heading="Guides">
-          {guides.map((guide) => (
+      {destinationGuides && destinationGuides.length > 0 && (
+        <Grid itemCount={destinationGuides.length} heading="Guides">
+          {destinationGuides.map((guide) => (
             <PhotoCard
               key={guide.contentful_id}
               title={guide.name}
@@ -171,7 +171,7 @@ export const pageQuery = graphql`
         title
         createdAt
       }
-      guides {
+      destinationGuides {
         contentful_id
         name
         slug

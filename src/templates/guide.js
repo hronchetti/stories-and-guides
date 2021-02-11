@@ -22,6 +22,7 @@ const Guide = ({ data }) => {
     seo,
     slug,
     subGuides,
+    destinationGuides,
   } = data.guide
 
   const stories = data.stories.edges
@@ -50,7 +51,7 @@ const Guide = ({ data }) => {
         image={seo.image.file.url}
       />
       {subGuides && subGuides.length > 0 && (
-        <Grid itemCount={featuredStories.length} heading={`Types of ${name}`}>
+        <Grid itemCount={subGuides.length} heading={`Types of ${name}`}>
           {subGuides.map((subGuide) => (
             <PhotoCard
               key={subGuide.contentful_id}
@@ -58,6 +59,22 @@ const Guide = ({ data }) => {
               photo={subGuide.coverPhoto.fluid}
               photoDesc={subGuide.coverPhoto.title}
               to={`/guides/${slug}/${subGuide.slug}/`}
+            />
+          ))}
+        </Grid>
+      )}
+      {destinationGuides && destinationGuides.length > 0 && (
+        <Grid
+          itemCount={destinationGuides.length}
+          heading={`${name} destinations`}
+        >
+          {destinationGuides.map((destinationGuide) => (
+            <PhotoCard
+              key={destinationGuide.contentful_id}
+              title={destinationGuide.name}
+              photo={destinationGuide.coverPhoto.fluid}
+              photoDesc={destinationGuide.coverPhoto.title}
+              to={`/guides/${slug}/${destinationGuide.slug}/`}
             />
           ))}
         </Grid>
@@ -144,6 +161,17 @@ export const pageQuery = graphql`
         introduction
       }
       subGuides {
+        contentful_id
+        name
+        slug
+        coverPhoto {
+          title
+          fluid(maxWidth: 1000) {
+            ...GatsbyContentfulFluid
+          }
+        }
+      }
+      destinationGuides {
         contentful_id
         name
         slug
