@@ -64,10 +64,7 @@ const Guide = ({ data }) => {
         </Grid>
       )}
       {destinationGuides && destinationGuides.length > 0 && (
-        <Grid
-          itemCount={destinationGuides.length}
-          heading={`${name} destinations`}
-        >
+        <Grid itemCount={destinationGuides.length} heading="Destinations">
           {destinationGuides.map((destinationGuide) => (
             <PhotoCard
               key={destinationGuide.contentful_id}

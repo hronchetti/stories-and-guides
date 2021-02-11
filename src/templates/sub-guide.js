@@ -38,10 +38,7 @@ const SubGuide = ({ data }) => {
         image={seo.image.file.url}
       />
       {destinationSubGuides && destinationSubGuides.length > 0 && (
-        <Grid
-          itemCount={destinationSubGuides.length}
-          heading={`Types of ${name}`}
-        >
+        <Grid itemCount={destinationSubGuides.length} heading="Destinations">
           {destinationSubGuides.map((destinationSubGuide) => (
             <PhotoCard
               key={destinationSubGuide.contentful_id}
