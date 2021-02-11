@@ -6,11 +6,11 @@ import {
   LayoutPhoto,
   Seo,
   PhotoCard,
-  AccordionContainer,
+  AccordionsSection,
 } from "../components"
 
 const SubGuide = ({ data }) => {
-  console.log(data.subGuide)
+  console.log(data)
   const { siteUrl } = data.site.siteMetadata
 
   const {
@@ -23,6 +23,18 @@ const SubGuide = ({ data }) => {
     slug,
     destinationSubGuides,
   } = data.subGuide
+
+  const stories = data.stories.edges
+
+  const nonFeaturedStories =
+    stories &&
+    stories.filter(
+      ({ node }) =>
+        featuredStories &&
+        featuredStories.some(
+          (featuredStory) => node.contentful_id !== featuredStory.contentful_id
+        )
+    )
 
   return (
     <LayoutPhoto
@@ -46,6 +58,50 @@ const SubGuide = ({ data }) => {
               photo={destinationSubGuide.coverPhoto.fluid}
               photoDesc={destinationSubGuide.coverPhoto.title}
               to={`/guides/${data.guide.slug}/${slug}/${destinationSubGuide.slug}/`}
+            />
+          ))}
+        </Grid>
+      )}
+      {featuredStories && featuredStories.length > 0 && (
+        <Grid
+          itemCount={featuredStories.length}
+          heading={`Featured ${name} stories`}
+        >
+          {featuredStories.map((featuredStory) => (
+            <PhotoCard
+              key={featuredStory.contentful_id}
+              title={featuredStory.title}
+              photo={featuredStory.coverPhoto.fluid}
+              photoDesc={featuredStory.coverPhoto.title}
+              to={`/stories/${featuredStory.slug}/`}
+              date={featuredStory.createdAt}
+            />
+          ))}
+        </Grid>
+      )}
+      {accordions &&
+        accordions.accordions &&
+        accordions.accordions.length > 0 && (
+          <AccordionsSection
+            heading={accordions.heading}
+            accordions={accordions.accordions}
+          />
+        )}
+      {nonFeaturedStories && nonFeaturedStories.length > 0 && (
+        <Grid
+          itemCount={nonFeaturedStories.length}
+          heading={`All ${name} stories`}
+          linkText="All stories"
+          linkTo="/stories/"
+        >
+          {nonFeaturedStories.map(({ node }) => (
+            <PhotoCard
+              key={node.contentful_id}
+              title={node.title}
+              photo={node.coverPhoto.fluid}
+              photoDesc={node.coverPhoto.title}
+              to={`/stories/${node.slug}/`}
+              date={node.createdAt}
             />
           ))}
         </Grid>
@@ -113,6 +169,7 @@ export const pageQuery = graphql`
       accordions {
         heading
         accordions {
+          contentful_id
           content {
             content
           }
@@ -122,6 +179,30 @@ export const pageQuery = graphql`
     }
     guide: contentfulGuides(contentful_id: { eq: $guideId }) {
       slug
+    }
+    stories: allContentfulStories(
+      filter: {
+        destinationSubGuides: {
+          elemMatch: {
+            guides___sub_guides: { elemMatch: { contentful_id: { eq: $id } } }
+          }
+        }
+      }
+    ) {
+      edges {
+        node {
+          contentful_id
+          slug
+          coverPhoto {
+            title
+            fluid(maxWidth: 2100) {
+              ...GatsbyContentfulFluid
+            }
+          }
+          title
+          createdAt
+        }
+      }
     }
   }
 `

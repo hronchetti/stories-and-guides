@@ -10,7 +10,6 @@ import {
 } from "../components"
 
 const Guide = ({ data }) => {
-  console.log(data.guide)
   const { siteUrl } = data.site.siteMetadata
 
   const {
@@ -112,14 +111,14 @@ const Guide = ({ data }) => {
           linkText="All stories"
           linkTo="/stories/"
         >
-          {nonFeaturedStories.map((featuredStory) => (
+          {nonFeaturedStories.map(({ node }) => (
             <PhotoCard
-              key={featuredStory.contentful_id}
-              title={featuredStory.title}
-              photo={featuredStory.coverPhoto.fluid}
-              photoDesc={featuredStory.coverPhoto.title}
-              to={`/stories/${featuredStory.slug}/`}
-              date={featuredStory.createdAt}
+              key={node.contentful_id}
+              title={node.title}
+              photo={node.coverPhoto.fluid}
+              photoDesc={node.coverPhoto.title}
+              to={`/stories/${node.slug}/`}
+              date={node.createdAt}
             />
           ))}
         </Grid>
@@ -199,6 +198,7 @@ export const pageQuery = graphql`
       accordions {
         heading
         accordions {
+          contentful_id
           content {
             content
           }
@@ -207,7 +207,11 @@ export const pageQuery = graphql`
       }
     }
     stories: allContentfulStories(
-      filter: { guides: { elemMatch: { contentful_id: { eq: $id } } } }
+      filter: {
+        destinationGuides: {
+          elemMatch: { guides: { elemMatch: { contentful_id: { eq: $id } } } }
+        }
+      }
     ) {
       edges {
         node {

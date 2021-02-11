@@ -133,6 +133,7 @@ export const pageQuery = graphql`
           heading
           accordions {
             name
+            contentful_id
             content {
               content
             }

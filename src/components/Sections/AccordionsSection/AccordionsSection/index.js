@@ -12,6 +12,7 @@ export const AccordionsSection = ({ heading, accordions }) => {
           <div className="accordions-section-accordions">
             {accordions.map((accordion) => (
               <Accordion
+                key={accordion.contentful_id}
                 name={accordion.name}
                 content={accordion.content.content}
               />
@@ -27,8 +28,11 @@ export const AccordionsSection = ({ heading, accordions }) => {
 
 AccordionsSection.propTypes = {
   heading: PropTypes.string.isRequired,
-  accordions: PropTypes.arrayOf({
-    name: PropTypes.string.isRequired,
-    content: PropTypes.object.isRequired,
-  }).isRequired,
+  accordions: PropTypes.arrayOf(
+    PropTypes.shape({
+      contentful_id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      content: PropTypes.object.isRequired,
+    })
+  ).isRequired,
 }
