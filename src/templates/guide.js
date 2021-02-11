@@ -23,6 +23,7 @@ const Guide = ({ data }) => {
     slug,
     subGuides,
     destinationGuides,
+    subGuidesHeading,
   } = data.guide
 
   const stories = data.stories.edges
@@ -51,7 +52,10 @@ const Guide = ({ data }) => {
         image={seo.image.file.url}
       />
       {subGuides && subGuides.length > 0 && (
-        <Grid itemCount={subGuides.length} heading={`Types of ${name}`}>
+        <Grid
+          itemCount={subGuides.length}
+          heading={subGuidesHeading ? subGuidesHeading : `Types of ${name}`}
+        >
           {subGuides.map((subGuide) => (
             <PhotoCard
               key={subGuide.contentful_id}
@@ -157,6 +161,7 @@ export const pageQuery = graphql`
       introduction {
         introduction
       }
+      subGuidesHeading
       subGuides {
         contentful_id
         name

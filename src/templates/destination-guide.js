@@ -18,6 +18,7 @@ const DestinationGuide = ({ data }) => {
     introduction,
     coverPhoto,
     destinationSubGuides,
+    destinationSubGuidesHeading,
   } = data.destinationGuide
   return (
     <LayoutPhoto
@@ -35,7 +36,11 @@ const DestinationGuide = ({ data }) => {
       {destinationSubGuides && destinationSubGuides.length > 0 && (
         <Grid
           itemCount={destinationSubGuides.length}
-          heading={`Types of ${name}`}
+          heading={
+            destinationSubGuidesHeading
+              ? destinationSubGuidesHeading
+              : `Types of ${name}`
+          }
         >
           {destinationSubGuides.map((destinationSubGuide) => (
             <PhotoCard
@@ -87,6 +92,7 @@ export const pageQuery = graphql`
       introduction {
         introduction
       }
+      destinationSubGuidesHeading
       destinationSubGuides {
         contentful_id
         name

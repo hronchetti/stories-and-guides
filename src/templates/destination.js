@@ -10,7 +10,7 @@ const Destination = ({ data }) => {
   const {
     coverPhoto,
     featuredStories,
-    destinationGuides,
+    guides___destination_guides,
     introduction,
     name,
     region,
@@ -46,17 +46,21 @@ const Destination = ({ data }) => {
         url={siteUrl + `/destinations/${slug}`}
         image={seo.image.file.url}
       />
-      {destinationGuides && destinationGuides.length > 0 && (
-        <Grid itemCount={destinationGuides.length} heading="Guides">
-          {destinationGuides.map((guide) => (
-            <PhotoCard
-              key={guide.contentful_id}
-              title={guide.name}
-              photo={guide.coverPhoto.fluid}
-              photoDesc={guide.coverPhoto.title}
-              to={`/guides/${guide.slug}/`}
-            />
-          ))}
+      {guides___destination_guides && guides___destination_guides.length > 0 && (
+        <Grid itemCount={guides___destination_guides.length} heading="Guides">
+          {guides___destination_guides.map((destinationGuide) => {
+            if (destinationGuide.guides && destinationGuide.guides.length > 0) {
+              return (
+                <PhotoCard
+                  key={destinationGuide.contentful_id}
+                  title={destinationGuide.name}
+                  photo={destinationGuide.coverPhoto.fluid}
+                  photoDesc={destinationGuide.coverPhoto.title}
+                  to={`/guides/${destinationGuide.guides[0].slug}/${destinationGuide.slug}/`}
+                />
+              )
+            }
+          })}
         </Grid>
       )}
       {featuredStories && featuredStories.length > 0 && (
@@ -171,7 +175,7 @@ export const pageQuery = graphql`
         title
         createdAt
       }
-      destinationGuides {
+      guides___destination_guides {
         contentful_id
         name
         slug
@@ -180,6 +184,9 @@ export const pageQuery = graphql`
           fluid(maxWidth: 1000) {
             ...GatsbyContentfulFluid
           }
+        }
+        guides {
+          slug
         }
       }
       usefulInformation {
