@@ -11,10 +11,10 @@ export {
   PhotoGallerySection,
   PhotosSection,
   QuoteSection,
+  TabsSection,
   TextSection,
 } from "./Sections"
 export { Seo } from "./SEO"
 export { Share } from "./Share"
 export { SocialSignOff } from "./SocialSignOff"
-export { Tab, TabContainer } from "./Tabs"
 export { Toast } from "./Toast"

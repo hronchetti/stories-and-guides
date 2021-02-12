@@ -30,7 +30,7 @@ export const Accordion = ({ name, content }) => {
       <div className="accordion-body" ref={accordionElement}>
         <ReactMarkdown
           className="accordion-body-content rich-text"
-          source={content}
+          children={content}
         />
       </div>
     </div>

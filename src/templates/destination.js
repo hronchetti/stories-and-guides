@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { LayoutPhoto, Seo, PhotoCard, TabContainer, Grid } from "../components"
+import { LayoutPhoto, Seo, PhotoCard, TabsSection, Grid } from "../components"
 
 const Destination = ({ data }) => {
   console.log(data.destination)
@@ -83,10 +83,10 @@ const Destination = ({ data }) => {
       {usefulInformation &&
         usefulInformation.tabs &&
         usefulInformation.tabs.length > 0 && (
-          <section className="wrapper-height">
-            <h2 className="heading-medium">Useful information</h2>
-            <TabContainer tabs={usefulInformation.tabs} />
-          </section>
+          <TabsSection
+            heading="Useful Information"
+            tabs={usefulInformation.tabs}
+          />
         )}
       {nonFeaturedStories && nonFeaturedStories.length > 0 && (
         <Grid

@@ -16,7 +16,7 @@ export const Contributor = ({
   <section className="wrapper-height contributor">
     <div className="contributor-body">
       <h2 className="heading-medium contributor-body-heading">{heading}</h2>
-      <ReactMarkdown className="rich-text" source={content} />
+      <ReactMarkdown className="rich-text" children={content} />
       <div className="contributor-body-social-links">
         {instagramUrl && (
           <a

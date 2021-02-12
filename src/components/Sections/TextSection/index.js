@@ -5,7 +5,7 @@ import PropTypes from "prop-types"
 export const TextSection = ({ heading, content }) => (
   <section className="wrapper-height text-section">
     <h2 className="heading-medium text-section-heading">{heading}</h2>
-    <ReactMarkdown className="rich-text" source={content} />
+    <ReactMarkdown className="rich-text" children={content} />
   </section>
 )
 

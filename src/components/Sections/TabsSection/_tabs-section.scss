@@ -1,0 +1,140 @@
+.tabs-section {
+  margin-top: 1rem;
+
+  .tabs-section-tabs {
+    @include flex-justify-start;
+    overflow: hidden;
+    position: relative;
+
+    .tabs-section-tabs-border {
+      display: none;
+    }
+
+    .tabs-section-tabs-button {
+      @include button-preset;
+      position: relative;
+      display: block;
+      cursor: pointer;
+      font: 300 1rem/1.5rem $font;
+      letter-spacing: 0.6px;
+      padding: 0.5rem 0.75rem;
+      margin: 0 0.75rem 0.625rem 0;
+      background-color: $beige-medium;
+      border-radius: 0.25rem;
+      color: white;
+      transition: background-color 200ms ease-in;
+
+      &.active {
+        background-color: #ebe8e6;
+        color: $beige-light;
+      }
+
+      .tabs-section-tabs-button-selector {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 1px;
+        width: 100%;
+        background-color: transparent;
+        z-index: 1000;
+        transition: background-color 200ms ease-in;
+      }
+    }
+  }
+
+  .tabs-section-panel {
+    display: grid;
+    gap: 1.5rem;
+    padding-top: 1rem;
+
+    .tabs-section-panel-photo {
+      animation: fadeIn 800ms ease-in;
+    }
+
+    .tabs-section-panel-content {
+      .tabs-section-panel-content-heading {
+        margin-bottom: 1rem;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .tabs-section {
+    margin-top: 1.5rem;
+
+    .tabs-section-tabs {
+      .tabs-section-tabs-border {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 1px;
+        width: 100%;
+        background-color: #ebe8e6;
+        z-index: -1;
+      }
+
+      .tabs-section-tabs-button {
+        font-size: 1.25rem;
+        line-height: 2rem;
+        padding: 1rem 0;
+        margin: 0 1.5rem 0 0;
+        color: $beige-medium;
+        transition: color 200ms ease-in;
+        background-color: transparent;
+
+        @media (hover: hover) {
+          &:hover {
+            color: $grey-dark;
+
+            .tabs-section-tabs-button-selector {
+              background-color: $grey-dark;
+            }
+          }
+        }
+
+        &.active,
+        &:focus {
+          background-color: transparent;
+          color: $grey-dark;
+
+          .tabs-section-tabs-button-selector {
+            background-color: $grey-dark;
+          }
+        }
+      }
+    }
+
+    .tabs-section-panel {
+      padding-top: 2rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+
+      .tabs-section-panel-content {
+        padding: 1rem 0;
+
+        .tabs-section-panel-content-heading {
+          margin-bottom: 1.5rem;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .tabs-section {
+    .tabs-section-panel {
+      padding-top: 3.5rem;
+      gap: 5rem;
+
+      .tabs-section-panel-content {
+        padding: 1.5rem 0;
+
+        .tabs-section-panel-content-heading {
+          margin-bottom: 2rem;
+        }
+      }
+    }
+  }
+}
