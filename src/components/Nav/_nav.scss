@@ -81,7 +81,7 @@
         }
       }
       .nav-mobile-menu-overlay {
-        transition: height cubic-bezier(0.4, 0.1, 0.1, 1) 800ms 200ms;
+        transition: height cubic-bezier(0.4, 0.1, 0.1, 1) 1000ms 200ms;
         background-color: $beige-light-super;
       }
     }
@@ -280,7 +280,7 @@
     height: 4.875rem;
     background-color: $beige-light-super;
     z-index: -1;
-    transition: height cubic-bezier(0.4, 0.1, 0.1, 1) 800ms;
+    transition: height cubic-bezier(0.4, 0.1, 0.1, 1) 1000ms;
     transition-delay: 875ms;
 
     &.active {
@@ -352,6 +352,7 @@
             padding: 0;
             transition-delay: 0ms !important;
             transition: opacity cubic-bezier(0.4, 0.1, 0.1, 1) 300ms;
+            line-height: 2.25rem;
 
             @media (hover: hover) {
               &:hover {

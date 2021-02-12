@@ -61,7 +61,11 @@ const Story = ({ data }) => {
               wide={section.wide}
             />
           ) : section.__typename === "ContentfulStoriesQuoteSections" ? (
-            <QuoteSection key={section.contentful_id} />
+            <QuoteSection
+              key={section.contentful_id}
+              quote={section.quote.quote}
+              author={section.author}
+            />
           ) : section.__typename === "ContentfulStoriesTextSection" ? (
             <TextSection
               key={section.contentful_id}

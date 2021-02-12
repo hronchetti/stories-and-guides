@@ -1,0 +1,48 @@
+.quote-section {
+  margin: 0 auto;
+  max-width: 54rem;
+  background-color: $grey-light;
+  padding: 1.75rem 2rem 2rem 2rem;
+
+  .quote-section-quote {
+    margin: 0 auto;
+    max-width: 42rem;
+    font: 300 1.125rem/2rem $font;
+    font-style: italic;
+    letter-spacing: 0.4px;
+  }
+
+  .quote-section-author {
+    max-width: 42rem;
+    margin: 1.25rem auto 0 auto;
+    display: block;
+    font: 300 1rem/1.75rem $font;
+    letter-spacing: 0.4px;
+    color: $beige-medium;
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .quote-section {
+    padding: 3rem 3rem 3.5rem 3rem;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .quote-section {
+    padding: 4rem 4rem 4.5rem 4rem;
+
+    .quote-section-quote {
+      font-size: 1.5rem;
+      line-height: 2.5rem;
+      letter-spacing: 0.7px;
+    }
+
+    .quote-section-author {
+      margin-top: 2.5rem;
+      font-size: 1.25rem;
+      line-height: 2rem;
+      letter-spacing: 0.6px;
+    }
+  }
+}
