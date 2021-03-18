@@ -13,7 +13,6 @@ import {
 } from "../components"
 
 const About = ({ data }) => {
-  console.log(data)
   const { siteUrl } = data.site.siteMetadata
   const {
     heading,

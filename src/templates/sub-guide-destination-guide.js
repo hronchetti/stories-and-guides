@@ -10,7 +10,6 @@ import {
 } from "../components"
 
 const SubGuideDestinationGuide = ({ data }) => {
-  console.log(data)
   const { siteUrl } = data.site.siteMetadata
   const {
     accordions,

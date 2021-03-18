@@ -35,13 +35,13 @@ body {
 
 .heading-medium {
   font: 300 1.125rem/1.5rem $font;
-  letter-spacing: 0.7px;
+  letter-spacing: 0.4px;
   color: black;
 }
 
 .heading-small {
   font: 300 1rem/1.625rem $font;
-  letter-spacing: 0.6px;
+  letter-spacing: 0.4px;
   color: $beige-medium;
 }
 
@@ -54,11 +54,13 @@ body {
   .heading-medium {
     font-size: 1.375rem;
     line-height: 2.125rem;
+    letter-spacing: 0.7px;
   }
 
   .heading-small {
     font-size: 1.375rem;
     line-height: 2.125rem;
+    letter-spacing: 0.6px;
   }
 
   .heading-extra-small {

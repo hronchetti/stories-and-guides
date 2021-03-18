@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 import { LayoutPhoto, Seo, PhotoCard, TabsSection, Grid } from "../components"
 
 const Destination = ({ data }) => {
-  console.log(data.destination)
   const { siteUrl } = data.site.siteMetadata
 
   const {

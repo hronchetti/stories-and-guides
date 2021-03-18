@@ -31,7 +31,12 @@
 .icon-share:before {
   content: "\e908";
 }
-.icon-chevron:before {
+.icon-chevron-right:before {
+  content: "\e900";
+}
+.icon-chevron-down:before {
+  display: block;
+  transform: rotate(90deg);
   content: "\e900";
 }
 .icon-close:before {

@@ -4,7 +4,6 @@ import { graphql, Link } from "gatsby"
 import { LayoutPhoto, Seo, PhotoCard, Grid } from "../components"
 
 const IndexPage = ({ data }) => {
-  console.log(data)
   const { siteUrl } = data.site.siteMetadata
   const {
     heading,

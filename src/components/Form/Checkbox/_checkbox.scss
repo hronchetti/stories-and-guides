@@ -1,0 +1,96 @@
+.checkbox-wrapper {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.5rem 1fr;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 2.5rem;
+
+    @media (hover: hover) {
+      &:hover + .checkbox {
+        background-color: $grey-light;
+      }
+    }
+
+    &:focus + .checkbox {
+      background-color: $grey-light;
+    }
+
+    &:focus:focus-visible + .checkbox {
+      outline: $beige-medium auto 1px;
+    }
+  }
+
+  .checkbox {
+    display: block;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 1px solid $grey-light;
+    background-color: white;
+    position: relative;
+    will-change: background-color, border-color;
+    transition: background-color 100ms ease, border-color 100ms ease;
+    pointer-events: none;
+
+    &:before {
+      font-family: "icomoon";
+      content: "\e905";
+      display: block;
+      position: absolute;
+      font-size: 1.375rem;
+      line-height: 1.375rem;
+      color: white;
+      opacity: 0;
+      will-change: opacity;
+    }
+  }
+
+  input:checked + .checkbox {
+    background-color: $grey-dark;
+    border-color: $grey-dark;
+
+    &:before {
+      opacity: 1;
+    }
+  }
+
+  .checkbox-label {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    pointer-events: none;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .checkbox-wrapper {
+    grid-template-columns: 1.75rem 1fr;
+    gap: 1.125rem;
+
+    .checkbox {
+      width: 1.75rem;
+      height: 1.75rem;
+
+      &:before {
+        font-size: 1.5rem;
+        line-height: 1.5rem;
+        left: 0.125rem;
+        top: 0.125rem;
+      }
+    }
+
+    input {
+      height: 2.75rem;
+    }
+
+    .checkbox-label {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+  }
+}

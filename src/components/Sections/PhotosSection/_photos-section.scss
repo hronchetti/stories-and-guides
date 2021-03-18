@@ -12,7 +12,7 @@
 
   .photos-section-photo {
     opacity: 0;
-    transition: opacity 500ms ease-in;
+    transition: opacity $fadeInDuartion ease-in;
 
     &.active {
       opacity: 1;

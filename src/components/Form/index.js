@@ -1,4 +1,5 @@
+export { Checkbox } from "./Checkbox"
 export { ErrorText } from "./ErrorText"
+export { FormScrollIfError as Form } from "./FormScrollIfError"
 export { Input } from "./Input"
 export { TextArea } from "./TextArea"
-export { FormScrollIfError as Form } from "./FormScrollIfError"

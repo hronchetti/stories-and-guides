@@ -1,10 +1,11 @@
 import React from "react"
 import PropTypes from "prop-types"
 
-export const Filter = () => {
+export const ActiveFilter = ({ name, removeFn }) => {
   return <div></div>
 }
 
-Filter.propTypes = {
+ActiveFilter.propTypes = {
   name: PropTypes.string.isRequired,
+  remove: PropTypes.func.isRequired,
 }

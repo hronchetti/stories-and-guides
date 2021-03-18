@@ -1,11 +1,16 @@
 .photo-card {
+  @include animation-preset;
   display: block;
   opacity: 0;
-  transition: opacity 500ms ease-in;
+  transition: opacity $fadeInDuartion ease-in, transform $fadeInDuartion ease;
   text-decoration: none;
+  will-change: transform, opacity, filter;
+  transform: translate3d(0, 2rem, 0);
+  position: relative;
 
   &.active {
     opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 
   @media (hover: hover) {
@@ -24,7 +29,7 @@
 
   .photo-card-photo {
     filter: brightness(100%);
-    transition: filter 300ms ease-in;
+    transition: filter 150ms ease-in;
     width: 100%;
   }
 

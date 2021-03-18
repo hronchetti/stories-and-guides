@@ -5,10 +5,12 @@
   grid-template-columns: 1fr;
   gap: 2rem;
 
-  .photo-card {
-    .photo-card-photo {
-      > div {
-        padding-bottom: 75% !important;
+  .grid-item {
+    .photo-card {
+      .photo-card-photo {
+        > div {
+          padding-bottom: 75% !important;
+        }
       }
     }
   }
@@ -23,6 +25,17 @@
     .photo-card-photo {
       > div {
         padding-bottom: 150% !important;
+      }
+    }
+  }
+}
+
+.grid-col-2,
+.grid-col-4 {
+  @for $i from 1 to 25 {
+    .grid-item:nth-child(#{$i}) {
+      .photo-card {
+        transition-delay: $i * 75ms;
       }
     }
   }

@@ -1,21 +1,71 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { Layout, PhotoCard, Seo } from "../components"
+import { Layout, Seo, FilterSystem, PhotoCard } from "../components"
 
 const Guides = ({ data }) => {
-  console.log(data)
   const { siteUrl } = data.site.siteMetadata
-  const guides = data.guides.edges
   const { heading, seo } = data.pageData
+  const [guides, setGuides] = React.useState([])
+  const [filters, setFilters] = React.useState([
+    {
+      name: "Example",
+      selected: false,
+    },
+  ])
+  const [sortOptions, setSortOptions] = React.useState({
+    selected: "Latest",
+    options: ["Latest", "Alphabetical"],
+  })
+
+  const setUpFilters = (items) => {
+    let newItemsArray = []
+
+    if (items && items.length > 0) {
+      items.map(
+        (item) =>
+          item.node.destinationGuides &&
+          item.node.destinationGuides.length > 0 &&
+          item.node.destinationGuides.map((guide) => {
+            if (
+              newItemsArray.length === 0 ||
+              newItemsArray.some(
+                (destination) => destination.name !== guide.destination.name
+              )
+            ) {
+              newItemsArray.push({
+                name: guide.destination.name,
+                selected: false,
+              })
+            }
+          })
+      )
+    }
+
+    return newItemsArray
+  }
+
+  React.useEffect(() => {
+    setFilters(setUpFilters(data.guides.edges))
+  }, [])
+
+  React.useEffect(() => {
+    setGuides(data.guides.edges)
+  }, [data])
 
   return (
-    <Layout heading="Guides">
+    <Layout heading={heading}>
       <Seo
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/guides/`}
         image={seo.image.file.url}
+      />
+      <FilterSystem
+        filters={filters}
+        setFilters={setFilters}
+        sortOptions={sortOptions}
+        setSortOptions={setSortOptions}
       />
       {guides && guides.length > 0 && (
         <section className={guides.length > 2 ? "grid-col-4" : "grid-col-2"}>
@@ -71,6 +121,14 @@ export const pageQuery = graphql`
             }
           }
           name
+          destinationGuides {
+            id
+            name
+            destination {
+              id
+              name
+            }
+          }
         }
       }
     }

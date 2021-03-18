@@ -37,7 +37,7 @@
       right: 1.25rem;
       top: 1.25rem;
       transform: rotate(90deg);
-      transition: transform 500ms ease-in-out;
+      transition: transform 400ms ease-in-out;
       color: $beige-medium;
     }
   }
@@ -45,7 +45,7 @@
   .accordion-body {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 500ms ease-in-out;
+    transition: max-height 400ms ease-in-out;
 
     .accordion-body-content {
       padding: 0 1.25rem;

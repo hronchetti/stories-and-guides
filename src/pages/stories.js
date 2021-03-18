@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 import { Layout, PhotoCard, Seo } from "../components"
 
 const Stories = ({ data }) => {
-  console.log(data)
   const { siteUrl } = data.site.siteMetadata
   const stories = data.stories.edges
   const { heading, seo } = data.pageData

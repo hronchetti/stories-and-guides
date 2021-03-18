@@ -16,7 +16,6 @@ import {
 } from "../components"
 
 const Story = ({ data }) => {
-  console.log(data.story)
   const { siteUrl } = data.site.siteMetadata
 
   const {
