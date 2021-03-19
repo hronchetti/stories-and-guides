@@ -8,6 +8,7 @@
     padding: 0.5rem 0;
     letter-spacing: 0.4px;
     background-color: transparent;
+    position: relative;
 
     .icon-chevron-down {
       display: block;
@@ -36,6 +37,27 @@
 
       .icon-chevron-down {
         transform: rotate(180deg);
+      }
+    }
+
+    &:after {
+      display: block;
+      content: "";
+      width: calculate-rem(5px);
+      height: calculate-rem(5px);
+      position: absolute;
+      right: 0;
+      top: calculate-rem(13px);
+      border-radius: 50%;
+      background-color: $beige-dark;
+      pointer-events: none;
+      opacity: 0;
+      will-change: opacity;
+    }
+
+    &.filtered {
+      &:after {
+        opacity: 1;
       }
     }
   }
@@ -96,6 +118,12 @@
         line-height: 1.5rem;
         margin-left: 0.25rem;
         padding-top: 0.125rem;
+      }
+
+      &:after {
+        width: calculate-rem(7px);
+        height: calculate-rem(7px);
+        top: 0.875rem;
       }
     }
 

@@ -1,0 +1,76 @@
+.active-filters {
+  @include flex-justify-start;
+  margin-top: 0.75rem;
+  margin-bottom: 1.5rem;
+
+  .active-filter {
+    background-color: white;
+    @include flex-justify-start;
+    margin-right: 0.75rem;
+
+    .active-filter-name {
+      display: block;
+      font: 300 1.125rem/1.5rem $font;
+      letter-spacing: 0.4px;
+      color: $grey-dark;
+      padding: 0.5rem 0.5rem 0.5rem 0.625rem;
+    }
+
+    .active-filter-button {
+      @include button-preset;
+      border-left: 1px solid $grey-light;
+      display: block;
+      background-color: white;
+      padding: calculate-rem(9px) 0.5rem;
+      cursor: pointer;
+      transition: background-color 150ms ease;
+      will-change: background-color;
+
+      @media (hover: hover) {
+        &:hover {
+          background-color: $grey-light;
+        }
+      }
+
+      &:focus {
+        background-color: $grey-light;
+      }
+
+      .icon-close {
+        font-size: 1.375rem;
+        line-height: 1.375rem;
+        display: block;
+        color: $beige-light;
+
+        &:before {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .active-filters {
+    margin-top: 2rem;
+    margin-bottom: 0;
+
+    .active-filter {
+      margin-right: 1rem;
+
+      .active-filter-name {
+        font-size: 1.25rem;
+        line-height: 1.625rem;
+        padding: 0.625rem 0.75rem 0.625rem 0.875rem;
+      }
+
+      .active-filter-button {
+        .icon-close {
+          padding-top: 0.125rem;
+          font-size: 1.5rem;
+          line-height: 1.5rem;
+        }
+      }
+    }
+  }
+}

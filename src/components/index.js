@@ -1,7 +1,7 @@
 export { Button, ButtonLinkWithArrow } from "./Buttons"
 export { Contributor } from "./Contributor"
 export { Grid, GridHeader } from "./Grids"
-export { FilterSystem, FilterGroup, SortButton } from "./Filters"
+export { ActiveFilter, FilterSystem, FilterGroup, SortButton } from "./Filters"
 export { Footer } from "./Footer"
 export { Input, TextArea, ErrorText, Form, Checkbox } from "./Form"
 export { Layout, LayoutPhoto } from "./Layouts"

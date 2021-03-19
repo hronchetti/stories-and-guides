@@ -5,14 +5,14 @@ import { FilterGroup, SortButton } from ".."
 
 export const FilterSystem = ({ filters, sortOptions }) => {
   return (
-    <section className="filter-system">
+    <form className="filter-system">
       <div className="filter-system-left">
         <FilterGroup name="Destinations" filters={filters} />
       </div>
       <div className="filter-system-right">
         <SortButton options={sortOptions} />
       </div>
-    </section>
+    </form>
   )
 }
 

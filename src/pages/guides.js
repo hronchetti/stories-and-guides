@@ -1,18 +1,23 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { Layout, Seo, FilterSystem, PhotoCard } from "../components"
+import {
+  Layout,
+  Seo,
+  FilterGroup,
+  SortButton,
+  PhotoCard,
+  ActiveFilter,
+} from "../components"
 
 const Guides = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
   const { heading, seo } = data.pageData
   const [guides, setGuides] = React.useState([])
-  const [filters, setFilters] = React.useState([
-    {
-      name: "Example",
-      selected: false,
-    },
-  ])
+  const [filters, setFilters] = React.useState({
+    all: [],
+    selected: [],
+  })
   const [sortOptions, setSortOptions] = React.useState({
     selected: "Latest",
     options: ["Latest", "Alphabetical"],
@@ -29,24 +34,32 @@ const Guides = ({ data }) => {
           item.node.destinationGuides.map((guide) => {
             if (
               newItemsArray.length === 0 ||
-              newItemsArray.some(
-                (destination) => destination.name !== guide.destination.name
-              )
+              newItemsArray.some((item) => item !== guide.destination.name)
             ) {
-              newItemsArray.push({
-                name: guide.destination.name,
-                selected: false,
-              })
+              newItemsArray.push(guide.destination.name)
             }
           })
       )
     }
-
     return newItemsArray
   }
 
+  const removeSelectedFilter = (changedFilter) => {
+    setFilters((curFilters) => ({
+      ...curFilters,
+      selected: [
+        ...curFilters.selected.filter(
+          (selectedFilter) => selectedFilter !== changedFilter
+        ),
+      ],
+    }))
+  }
+
   React.useEffect(() => {
-    setFilters(setUpFilters(data.guides.edges))
+    setFilters({
+      all: setUpFilters(data.guides.edges),
+      selected: [],
+    })
   }, [])
 
   React.useEffect(() => {
@@ -61,14 +74,35 @@ const Guides = ({ data }) => {
         url={siteUrl + `/guides/`}
         image={seo.image.file.url}
       />
-      <FilterSystem
-        filters={filters}
-        setFilters={setFilters}
-        sortOptions={sortOptions}
-        setSortOptions={setSortOptions}
-      />
+      <section className="filter-system">
+        <div>
+          <FilterGroup
+            name="Destinations"
+            filters={filters}
+            setFilters={setFilters}
+          />
+        </div>
+        <div>
+          <SortButton options={sortOptions} setSortOptions={setSortOptions} />
+        </div>
+      </section>
+      {filters.selected.length > 0 && (
+        <section className="active-filters">
+          {filters.selected.map((selectedFilter) => (
+            <ActiveFilter
+              key={selectedFilter}
+              name={selectedFilter}
+              removeFn={() => removeSelectedFilter(selectedFilter)}
+            />
+          ))}
+        </section>
+      )}
       {guides && guides.length > 0 && (
-        <section className={guides.length > 2 ? "grid-col-4" : "grid-col-2"}>
+        <section
+          className={`${
+            guides.length > 2 ? "grid-col-4" : "grid-col-2"
+          } filter-system-results`}
+        >
           {guides.map(({ node }) => (
             <PhotoCard
               key={node.contentful_id}

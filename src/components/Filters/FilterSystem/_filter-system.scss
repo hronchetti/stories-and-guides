@@ -1,17 +1,20 @@
 .filter-system {
   @include flex-space-between;
-  margin-bottom: 1rem;
   position: relative;
 }
 
+.filter-system-results {
+  margin-top: 1rem;
+}
+
 @media only screen and (min-width: 600px) {
-  .filter-system {
-    margin-bottom: 2rem;
+  .filter-system-results {
+    margin-top: 2rem;
   }
 }
 
 @media only screen and (min-width: 1100px) {
-  .filter-system {
-    margin-bottom: 4rem;
+  .filter-system-results {
+    margin-top: 4rem;
   }
 }
