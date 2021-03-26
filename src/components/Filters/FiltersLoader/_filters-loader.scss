@@ -1,0 +1,43 @@
+@keyframes loaderSpin {
+  0% {
+    transform: translate3d(-50%, -50%, 0) rotate(0deg);
+  }
+  100% {
+    transform: translate3d(-50%, -50%, 0) rotate(360deg);
+  }
+}
+
+.filters-loader {
+  height: 8.5rem; // Cards are 17rem tall
+
+  .filters-loader-spinner {
+    position: absolute;
+    @include animation-preset;
+    display: block;
+    border: #e6e4e3 0.125rem solid;
+    border-top: $beige-medium 0.125rem solid;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0) rotate(45deg);
+    animation: loaderSpin 500ms forwards infinite;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .filters-loader {
+    .filters-loader-spinner {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+  }
+}
+
+@media only screen and (min-width: 1100px) {
+  .filters-loader {
+    height: 14.25rem; // Cards are 28.5rem tall
+  }
+}

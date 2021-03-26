@@ -8,19 +8,25 @@ import {
   SortButton,
   PhotoCard,
   ActiveFilter,
+  FiltersLoader,
 } from "../components"
 
 const Guides = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
   const { heading, seo } = data.pageData
+  const allGuides = data.guides.edges
+
+  const [loading, setLoading] = React.useState(false)
   const [guides, setGuides] = React.useState([])
   const [filters, setFilters] = React.useState({
     all: [],
     selected: [],
+    visible: false,
   })
   const [sortOptions, setSortOptions] = React.useState({
     selected: "Latest",
     options: ["Latest", "Alphabetical"],
+    visible: false,
   })
 
   const setUpFilters = (items) => {
@@ -44,6 +50,71 @@ const Guides = ({ data }) => {
     return newItemsArray
   }
 
+  const updateResults = (event) => {
+    const changedFilter = event.target.name
+
+    if (
+      filters.selected.some(
+        (selectedFilter) => selectedFilter === changedFilter
+      )
+    ) {
+      setFilters((curFilters) => ({
+        ...curFilters,
+        selected: [
+          ...curFilters.selected.filter(
+            (selectedFilter) => selectedFilter !== changedFilter
+          ),
+        ],
+      }))
+    } else {
+      setFilters((curFilters) => ({
+        ...curFilters,
+        selected: [...curFilters.selected, changedFilter],
+      }))
+    }
+
+    setTimeout(() => {
+      setFilters((curFilters) => ({
+        ...curFilters,
+        visible: false,
+      }))
+    }, 300)
+  }
+
+  const filterGuides = () => {
+    setLoading(true)
+
+    if (filters.selected.length > 0) {
+      const results = allGuides.filter((guide) => {
+        if (
+          guide.node.destinationGuides &&
+          guide.node.destinationGuides.length > 0
+        ) {
+          let hasDestinations = false
+          guide.node.destinationGuides.map((destination) => {
+            if (
+              filters.selected.some(
+                (selectedFilter) =>
+                  selectedFilter === destination.destination.name
+              )
+            ) {
+              hasDestinations = true
+            }
+          })
+          return hasDestinations
+        } else {
+          return false
+        }
+      })
+      setGuides(results)
+    } else {
+      setGuides(allGuides)
+    }
+    setTimeout(() => {
+      setLoading(false)
+    }, 300)
+  }
+
   const removeSelectedFilter = (changedFilter) => {
     setFilters((curFilters) => ({
       ...curFilters,
@@ -55,15 +126,33 @@ const Guides = ({ data }) => {
     }))
   }
 
+  const orderResults = (option) => {
+    setSortOptions((existingSortOptions) => ({
+      ...existingSortOptions,
+      selected: option,
+    }))
+
+    setTimeout(() => {
+      setSortOptions((curOptions) => ({
+        ...curOptions,
+        visible: false,
+      }))
+    }, 300)
+  }
+
   React.useEffect(() => {
     setFilters({
-      all: setUpFilters(data.guides.edges),
+      all: setUpFilters(allGuides),
       selected: [],
     })
   }, [])
 
   React.useEffect(() => {
-    setGuides(data.guides.edges)
+    filterGuides()
+  }, [filters.selected])
+
+  React.useEffect(() => {
+    setGuides(allGuides)
   }, [data])
 
   return (
@@ -80,10 +169,15 @@ const Guides = ({ data }) => {
             name="Destinations"
             filters={filters}
             setFilters={setFilters}
+            updateResults={updateResults}
           />
         </div>
         <div>
-          <SortButton options={sortOptions} setSortOptions={setSortOptions} />
+          <SortButton
+            sortOptions={sortOptions}
+            setSortOptions={setSortOptions}
+            orderResults={orderResults}
+          />
         </div>
       </section>
       {filters.selected.length > 0 && (
@@ -103,15 +197,21 @@ const Guides = ({ data }) => {
             guides.length > 2 ? "grid-col-4" : "grid-col-2"
           } filter-system-results`}
         >
-          {guides.map(({ node }) => (
-            <PhotoCard
-              key={node.contentful_id}
-              photo={node.coverPhoto.fluid}
-              photoDesc={node.coverPhoto.title}
-              title={node.name}
-              to={`/guides/${node.slug}/`}
-            />
-          ))}
+          {loading ? (
+            <FiltersLoader loading={loading} />
+          ) : (
+            <>
+              {guides.map(({ node }) => (
+                <PhotoCard
+                  key={node.contentful_id}
+                  photo={node.coverPhoto.fluid}
+                  photoDesc={node.coverPhoto.title}
+                  title={node.name}
+                  to={`/guides/${node.slug}/`}
+                />
+              ))}
+            </>
+          )}
         </section>
       )}
     </Layout>
