@@ -106,9 +106,9 @@ const Guides = ({ data }) => {
           return false
         }
       })
-      setGuides(results)
+      setGuides(orderResults(results))
     } else {
-      setGuides(allGuides)
+      setGuides(orderResults(allGuides))
     }
     setTimeout(() => {
       setLoading(false)
@@ -126,35 +126,19 @@ const Guides = ({ data }) => {
     }))
   }
 
-  const orderResults = () => {
-    setLoading(true)
+  const orderResults = (guides) => {
     if (sortOptions.selected === "Alphabetical") {
-      setGuides((guides) =>
-        guides.sort((guide1, guide2) =>
-          guide1.node.name.localeCompare(guide2.node.name)
-        )
+      return guides.sort((guide1, guide2) =>
+        guide1.node.name.localeCompare(guide2.node.name)
       )
     } else if (sortOptions.selected === "Latest") {
-      setGuides((guides) =>
-        guides
-          .sort(
-            (guide1, guide2) =>
-              new Date(guide1.node.updatedAt) - new Date(guide2.node.updatedAt)
-          )
-          .reverse()
-      )
+      return guides
+        .sort(
+          (guide1, guide2) =>
+            new Date(guide1.node.updatedAt) - new Date(guide2.node.updatedAt)
+        )
+        .reverse()
     }
-
-    setTimeout(() => {
-      setLoading(false)
-    }, 150)
-
-    setTimeout(() => {
-      setSortOptions((curOptions) => ({
-        ...curOptions,
-        visible: false,
-      }))
-    }, 300)
   }
 
   React.useEffect(() => {
@@ -170,7 +154,18 @@ const Guides = ({ data }) => {
   }, [filters.selected])
 
   React.useEffect(() => {
-    orderResults()
+    setLoading(true)
+    setGuides(orderResults(guides))
+    setTimeout(() => {
+      setLoading(false)
+    }, 150)
+
+    setTimeout(() => {
+      setSortOptions((curOptions) => ({
+        ...curOptions,
+        visible: false,
+      }))
+    }, 300)
   }, [sortOptions.selected])
 
   return (
