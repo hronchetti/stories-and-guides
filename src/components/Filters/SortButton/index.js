@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 
 import { useOnClickOutside } from "../../../hooks"
 
-export const SortButton = ({ sortOptions, setSortOptions, orderResults }) => {
+export const SortButton = ({ sortOptions, setSortOptions }) => {
   const ref = React.useRef()
   useOnClickOutside(ref, () =>
     setSortOptions((curOptions) => ({
@@ -39,7 +39,12 @@ export const SortButton = ({ sortOptions, setSortOptions, orderResults }) => {
               <button
                 type="button"
                 className="sort-button-option-button"
-                onClick={() => orderResults(option)}
+                onClick={() =>
+                  setSortOptions((curSortOptions) => ({
+                    ...curSortOptions,
+                    selected: option,
+                  }))
+                }
                 tabIndex={sortOptions.visible ? 0 : -1}
               >
                 {option}

@@ -24,8 +24,8 @@ const Guides = ({ data }) => {
     visible: false,
   })
   const [sortOptions, setSortOptions] = React.useState({
-    selected: "Latest",
-    options: ["Latest", "Alphabetical"],
+    selected: "Alphabetical",
+    options: ["Alphabetical", "Latest"],
     visible: false,
   })
 
@@ -112,7 +112,7 @@ const Guides = ({ data }) => {
     }
     setTimeout(() => {
       setLoading(false)
-    }, 300)
+    }, 150)
   }
 
   const removeSelectedFilter = (changedFilter) => {
@@ -126,11 +126,28 @@ const Guides = ({ data }) => {
     }))
   }
 
-  const orderResults = (option) => {
-    setSortOptions((existingSortOptions) => ({
-      ...existingSortOptions,
-      selected: option,
-    }))
+  const orderResults = () => {
+    setLoading(true)
+    if (sortOptions.selected === "Alphabetical") {
+      setGuides((guides) =>
+        guides.sort((guide1, guide2) =>
+          guide1.node.name.localeCompare(guide2.node.name)
+        )
+      )
+    } else if (sortOptions.selected === "Latest") {
+      setGuides((guides) =>
+        guides
+          .sort(
+            (guide1, guide2) =>
+              new Date(guide1.node.updatedAt) - new Date(guide2.node.updatedAt)
+          )
+          .reverse()
+      )
+    }
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 150)
 
     setTimeout(() => {
       setSortOptions((curOptions) => ({
@@ -141,19 +158,20 @@ const Guides = ({ data }) => {
   }
 
   React.useEffect(() => {
+    setGuides(allGuides)
     setFilters({
       all: setUpFilters(allGuides),
       selected: [],
     })
-  }, [])
+  }, [allGuides])
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     filterGuides()
   }, [filters.selected])
 
   React.useEffect(() => {
-    setGuides(allGuides)
-  }, [data])
+    orderResults()
+  }, [sortOptions.selected])
 
   return (
     <Layout heading={heading}>
@@ -197,21 +215,17 @@ const Guides = ({ data }) => {
             guides.length > 2 ? "grid-col-4" : "grid-col-2"
           } filter-system-results`}
         >
-          {loading ? (
-            <FiltersLoader loading={loading} />
-          ) : (
-            <>
-              {guides.map(({ node }) => (
-                <PhotoCard
-                  key={node.contentful_id}
-                  photo={node.coverPhoto.fluid}
-                  photoDesc={node.coverPhoto.title}
-                  title={node.name}
-                  to={`/guides/${node.slug}/`}
-                />
-              ))}
-            </>
-          )}
+          <FiltersLoader loading={loading}>
+            {guides.map(({ node }) => (
+              <PhotoCard
+                key={node.contentful_id}
+                photo={node.coverPhoto.fluid}
+                photoDesc={node.coverPhoto.title}
+                title={node.name}
+                to={`/guides/${node.slug}/`}
+              />
+            ))}
+          </FiltersLoader>
         </section>
       )}
     </Layout>
@@ -263,6 +277,7 @@ export const pageQuery = graphql`
               name
             }
           }
+          updatedAt
         }
       }
     }
