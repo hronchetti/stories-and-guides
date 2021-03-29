@@ -14,6 +14,10 @@
       letter-spacing: 0.4px;
       color: $grey-dark;
       padding: 0.5rem 0.5rem 0.5rem 0.625rem;
+
+      .active-filter-name-prefix {
+        opacity: 0.5;
+      }
     }
 
     .active-filter-button {

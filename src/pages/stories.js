@@ -73,12 +73,37 @@ const Stories = ({ data }) => {
 
   const filterStories = () => {
     setLoading(true)
-    console.log(allStories)
 
     if (
       filtersDestinations.selected.length > 0 ||
       filtersGuides.selected.length > 0
     ) {
+      const results = allStories.filter((story) => {
+        let hasGuides = false
+
+        if (story.node.guides && story.node.guides.length > 0) {
+          story.node.guides.map((guide) => {
+            if (
+              filtersGuides.selected.some(
+                (selectedFilter) => selectedFilter === guide.name
+              )
+            ) {
+              hasGuides = true
+            }
+          })
+        }
+
+        if (
+          filtersDestinations.selected.some(
+            (selectedFilter) => selectedFilter === story.node.destination.name
+          )
+        ) {
+          hasGuides = true
+        }
+
+        return hasGuides
+      })
+      setStories(orderResults(results, sortOptions.selected, "story"))
     } else {
       setStories(orderResults(allStories, sortOptions.selected, "story"))
     }
@@ -157,7 +182,8 @@ const Stories = ({ data }) => {
           {filtersDestinations.selected.map((selectedFilter) => (
             <ActiveFilter
               key={selectedFilter}
-              name={"Destination: " + selectedFilter}
+              prefix="Destination"
+              name={selectedFilter}
               removeFn={() =>
                 removeSelectedFilter(selectedFilter, setFiltersDestinations)
               }
@@ -166,7 +192,8 @@ const Stories = ({ data }) => {
           {filtersGuides.selected.map((selectedFilter) => (
             <ActiveFilter
               key={selectedFilter}
-              name={"Guide: " + selectedFilter}
+              prefix="Guide"
+              name={selectedFilter}
               removeFn={() =>
                 removeSelectedFilter(selectedFilter, setFiltersGuides)
               }
