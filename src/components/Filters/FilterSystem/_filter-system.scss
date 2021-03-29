@@ -1,6 +1,17 @@
 .filter-system {
   @include flex-space-between;
   position: relative;
+
+  &.filter-system-multiple-filters {
+    .filter-system-multiple-filters-options {
+      @include flex-justify-start;
+      width: calc(100% - 10.25rem);
+    }
+
+    .filter-system-multiple-sort-options {
+      width: 10.25rem;
+    }
+  }
 }
 
 .filter-system-results {
@@ -15,6 +26,17 @@
 }
 
 @media only screen and (min-width: 1100px) {
+  .filter-system {
+    &.filter-system-multiple-filters {
+      .filter-system-multiple-filters-options {
+        width: calc(100% - 12.5rem);
+      }
+      .filter-system-multiple-sort-options {
+        width: 12.5rem;
+      }
+    }
+  }
+
   .filter-system-results {
     margin-top: 4rem;
   }

@@ -4,12 +4,11 @@ import { graphql } from "gatsby"
 import {
   Layout,
   Seo,
-  FilterGroup,
-  SortButton,
+  FilterSystem,
   PhotoCard,
-  ActiveFilter,
   FiltersLoader,
 } from "../components"
+import { orderResults, updateFilters } from "../utilities"
 
 const Guides = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
@@ -19,6 +18,7 @@ const Guides = ({ data }) => {
   const [loading, setLoading] = React.useState(false)
   const [guides, setGuides] = React.useState([])
   const [filters, setFilters] = React.useState({
+    name: "Destinations",
     all: [],
     selected: [],
     visible: false,
@@ -30,7 +30,7 @@ const Guides = ({ data }) => {
   })
 
   const setUpFilters = (items) => {
-    let newItemsArray = []
+    let destinations = []
 
     if (items && items.length > 0) {
       items.map(
@@ -39,46 +39,15 @@ const Guides = ({ data }) => {
           item.node.destinationGuides.length > 0 &&
           item.node.destinationGuides.map((guide) => {
             if (
-              newItemsArray.length === 0 ||
-              newItemsArray.some((item) => item !== guide.destination.name)
+              destinations.length === 0 ||
+              destinations.some((item) => item !== guide.destination.name)
             ) {
-              newItemsArray.push(guide.destination.name)
+              destinations.push(guide.destination.name)
             }
           })
       )
     }
-    return newItemsArray
-  }
-
-  const updateResults = (event) => {
-    const changedFilter = event.target.name
-
-    if (
-      filters.selected.some(
-        (selectedFilter) => selectedFilter === changedFilter
-      )
-    ) {
-      setFilters((curFilters) => ({
-        ...curFilters,
-        selected: [
-          ...curFilters.selected.filter(
-            (selectedFilter) => selectedFilter !== changedFilter
-          ),
-        ],
-      }))
-    } else {
-      setFilters((curFilters) => ({
-        ...curFilters,
-        selected: [...curFilters.selected, changedFilter],
-      }))
-    }
-
-    setTimeout(() => {
-      setFilters((curFilters) => ({
-        ...curFilters,
-        visible: false,
-      }))
-    }, 300)
+    return destinations
   }
 
   const filterGuides = () => {
@@ -106,46 +75,22 @@ const Guides = ({ data }) => {
           return false
         }
       })
-      setGuides(orderResults(results))
+      setGuides(orderResults(results, sortOptions.selected))
     } else {
-      setGuides(orderResults(allGuides))
+      setGuides(orderResults(allGuides, sortOptions.selected))
     }
     setTimeout(() => {
       setLoading(false)
     }, 150)
   }
 
-  const removeSelectedFilter = (changedFilter) => {
-    setFilters((curFilters) => ({
-      ...curFilters,
-      selected: [
-        ...curFilters.selected.filter(
-          (selectedFilter) => selectedFilter !== changedFilter
-        ),
-      ],
-    }))
-  }
-
-  const orderResults = (guides) => {
-    if (sortOptions.selected === "Alphabetical") {
-      return guides.sort((guide1, guide2) =>
-        guide1.node.name.localeCompare(guide2.node.name)
-      )
-    } else if (sortOptions.selected === "Latest") {
-      return guides
-        .sort(
-          (guide1, guide2) =>
-            new Date(guide1.node.updatedAt) - new Date(guide2.node.updatedAt)
-        )
-        .reverse()
-    }
-  }
-
   React.useEffect(() => {
     setGuides(allGuides)
     setFilters({
+      name: "Destinations",
       all: setUpFilters(allGuides),
       selected: [],
+      visible: false,
     })
   }, [allGuides])
 
@@ -155,7 +100,7 @@ const Guides = ({ data }) => {
 
   React.useEffect(() => {
     setLoading(true)
-    setGuides(orderResults(guides))
+    setGuides(orderResults(guides, sortOptions.selected))
     setTimeout(() => {
       setLoading(false)
     }, 150)
@@ -176,34 +121,14 @@ const Guides = ({ data }) => {
         url={siteUrl + `/guides/`}
         image={seo.image.file.url}
       />
-      <section className="filter-system">
-        <div>
-          <FilterGroup
-            name="Destinations"
-            filters={filters}
-            setFilters={setFilters}
-            updateResults={updateResults}
-          />
-        </div>
-        <div>
-          <SortButton
-            sortOptions={sortOptions}
-            setSortOptions={setSortOptions}
-            orderResults={orderResults}
-          />
-        </div>
-      </section>
-      {filters.selected.length > 0 && (
-        <section className="active-filters">
-          {filters.selected.map((selectedFilter) => (
-            <ActiveFilter
-              key={selectedFilter}
-              name={selectedFilter}
-              removeFn={() => removeSelectedFilter(selectedFilter)}
-            />
-          ))}
-        </section>
-      )}
+      <FilterSystem
+        filters={filters}
+        orderResults={orderResults}
+        setFilters={setFilters}
+        setSortOptions={setSortOptions}
+        sortOptions={sortOptions}
+        updateResults={updateFilters}
+      />
       {guides && guides.length > 0 && (
         <section
           className={`${

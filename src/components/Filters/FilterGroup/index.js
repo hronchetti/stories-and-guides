@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import { Checkbox } from "../.."
 import { useOnClickOutside } from "../../../hooks"
 
-export const FilterGroup = ({ name, filters, updateResults, setFilters }) => {
+export const FilterGroup = ({ filters, updateResults, setFilters }) => {
   const ref = React.useRef()
   useOnClickOutside(ref, () =>
     setFilters((filters) => ({ ...filters, visible: false }))
@@ -24,7 +24,7 @@ export const FilterGroup = ({ name, filters, updateResults, setFilters }) => {
           }))
         }
       >
-        <span>{name}</span>
+        <span>{filters.name}</span>
         <span className="icon-chevron-down"></span>
       </button>
       <ul className={`filter-group-options${filters.visible ? " active" : ""}`}>
@@ -37,7 +37,9 @@ export const FilterGroup = ({ name, filters, updateResults, setFilters }) => {
               name={filter}
               label={filter}
               tabIndex={filters.visible ? 0 : -1}
-              onChange={updateResults}
+              onChange={(e) => {
+                updateResults(e, setFilters, filters)
+              }}
             />
           </li>
         ))}
@@ -47,7 +49,6 @@ export const FilterGroup = ({ name, filters, updateResults, setFilters }) => {
 }
 
 FilterGroup.propTypes = {
-  name: PropTypes.string.isRequired,
   filters: PropTypes.object.isRequired,
   updateResults: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired,

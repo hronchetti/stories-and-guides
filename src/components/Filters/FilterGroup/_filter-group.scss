@@ -1,4 +1,6 @@
 .filter-group {
+  position: relative;
+
   .filter-group-button {
     @include button-preset;
     @include flex-justify-start;
@@ -63,7 +65,6 @@
   }
 
   .filter-group-options {
-    max-width: 100%;
     position: absolute;
     display: grid;
     left: 0;
@@ -105,6 +106,12 @@
   }
 }
 
+.filter-system-multiple-filters {
+  .filter-group {
+    margin-right: 2rem;
+  }
+}
+
 @media only screen and (min-width: 900px) {
   .filter-group {
     .filter-group-button {
@@ -134,6 +141,12 @@
       @supports (width: max-content) {
         width: max-content;
       }
+    }
+  }
+
+  .filter-system-multiple-filters {
+    .filter-group {
+      margin-right: 2.5rem;
     }
   }
 }

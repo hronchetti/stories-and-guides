@@ -8,11 +8,11 @@
 }
 
 .filters-loader {
-  height: 8.5rem; // Cards are 17rem tall
+  height: 17rem; // Cards are 17rem tall
 
   .filters-loader-spinner {
-    position: absolute;
     @include animation-preset;
+    position: absolute;
     display: block;
     border: #e6e4e3 0.125rem solid;
     border-top: $beige-medium 0.125rem solid;
@@ -21,8 +21,9 @@
     border-radius: 50%;
     position: absolute;
     left: 50%;
-    top: 50%;
+    top: 25%;
     transform: translate3d(-50%, -50%, 0) rotate(45deg);
+    will-change: transform;
     animation: loaderSpin 500ms forwards infinite;
   }
 }
@@ -38,6 +39,10 @@
 
 @media only screen and (min-width: 1100px) {
   .filters-loader {
-    height: 14.25rem; // Cards are 28.5rem tall
+    height: 28.5rem; // Cards are 28.5rem tall
+
+    .filters-loader-spinner {
+      top: 12.5%;
+    }
   }
 }

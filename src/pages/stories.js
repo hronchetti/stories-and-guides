@@ -1,12 +1,127 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { Layout, PhotoCard, Seo } from "../components"
+import {
+  Layout,
+  PhotoCard,
+  Seo,
+  FilterGroup,
+  SortButton,
+  FiltersLoader,
+  ActiveFilter,
+} from "../components"
+import { orderResults, updateFilters, removeSelectedFilter } from "../utilities"
 
 const Stories = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
-  const stories = data.stories.edges
+  const allStories = data.stories.edges
   const { heading, seo } = data.pageData
+
+  const [loading, setLoading] = React.useState(false)
+  const [stories, setStories] = React.useState([])
+  const [filtersDestinations, setFiltersDestinations] = React.useState({
+    name: "Desintations",
+    all: [],
+    selected: [],
+    visible: false,
+  })
+  const [filtersGuides, setFiltersGuides] = React.useState({
+    name: "Guides",
+    all: [],
+    selected: [],
+    visible: false,
+  })
+  const [sortOptions, setSortOptions] = React.useState({
+    selected: "Alphabetical",
+    options: ["Alphabetical", "Latest"],
+    visible: false,
+  })
+
+  const setUpDestinationFilters = (stories) => {
+    let destinations = []
+
+    stories.map((story) => {
+      if (
+        destinations.length === 0 ||
+        destinations.some((item) => item !== story.node.destination.name)
+      ) {
+        destinations.push(story.node.destination.name)
+      }
+    })
+
+    return destinations
+  }
+
+  const setUpGuideFilters = (stories) => {
+    let guides = []
+
+    stories.map((story) => {
+      if (story.node.guides && story.node.guides.length > 0) {
+        story.node.guides.map((guide) => {
+          if (
+            guides.length === 0 ||
+            guides.some((item) => item !== guide.name)
+          ) {
+            guides.push(guide.name)
+          }
+        })
+      }
+    })
+
+    return guides
+  }
+
+  const filterStories = () => {
+    setLoading(true)
+    console.log(allStories)
+
+    if (
+      filtersDestinations.selected.length > 0 ||
+      filtersGuides.selected.length > 0
+    ) {
+    } else {
+      setStories(orderResults(allStories, sortOptions.selected, "story"))
+    }
+
+    setTimeout(() => {
+      setLoading(false)
+    }, 150)
+  }
+
+  React.useEffect(() => {
+    setStories(allStories)
+    setFiltersDestinations({
+      name: "Destinations",
+      all: setUpDestinationFilters(allStories),
+      selected: [],
+      visible: false,
+    })
+    setFiltersGuides({
+      name: "Guides",
+      all: setUpGuideFilters(allStories),
+      selected: [],
+      visible: false,
+    })
+  }, [allStories])
+
+  React.useLayoutEffect(() => {
+    filterStories()
+  }, [filtersDestinations.selected, filtersGuides.selected])
+
+  React.useEffect(() => {
+    setLoading(true)
+    setStories(orderResults(stories, sortOptions.selected, "story"))
+    setTimeout(() => {
+      setLoading(false)
+    }, 150)
+
+    setTimeout(() => {
+      setSortOptions((curOptions) => ({
+        ...curOptions,
+        visible: false,
+      }))
+    }, 300)
+  }, [sortOptions.selected])
 
   return (
     <Layout heading={heading}>
@@ -16,18 +131,67 @@ const Stories = ({ data }) => {
         url={siteUrl + `/stories/`}
         image={seo.image.file.url}
       />
-      {stories && stories.length > 0 && (
-        <section className={stories.length > 2 ? "grid-col-4" : "grid-col-2"}>
-          {stories.map(({ node }) => (
-            <PhotoCard
-              key={node.contentful_id}
-              photo={node.coverPhoto.fluid}
-              photoDesc={node.coverPhoto.title}
-              title={node.title}
-              to={`/stories/${node.slug}/`}
-              date={node.createdAt}
+      <section className="filter-system filter-system-multiple-filters">
+        <div className="filter-system-multiple-filters-options">
+          <FilterGroup
+            filters={filtersDestinations}
+            setFilters={setFiltersDestinations}
+            updateResults={updateFilters}
+          />
+          <FilterGroup
+            filters={filtersGuides}
+            setFilters={setFiltersGuides}
+            updateResults={updateFilters}
+          />
+        </div>
+        <div className="filter-system-multiple-sort-options">
+          <SortButton
+            sortOptions={sortOptions}
+            setSortOptions={setSortOptions}
+          />
+        </div>
+      </section>
+      {(filtersDestinations.selected.length > 0 ||
+        filtersGuides.selected.length > 0) && (
+        <section className="active-filters">
+          {filtersDestinations.selected.map((selectedFilter) => (
+            <ActiveFilter
+              key={selectedFilter}
+              name={"Destination: " + selectedFilter}
+              removeFn={() =>
+                removeSelectedFilter(selectedFilter, setFiltersDestinations)
+              }
             />
           ))}
+          {filtersGuides.selected.map((selectedFilter) => (
+            <ActiveFilter
+              key={selectedFilter}
+              name={"Guide: " + selectedFilter}
+              removeFn={() =>
+                removeSelectedFilter(selectedFilter, setFiltersGuides)
+              }
+            />
+          ))}
+        </section>
+      )}
+      {stories && stories.length > 0 && (
+        <section
+          className={`${
+            stories.length > 2 ? "grid-col-4" : "grid-col-2"
+          } filter-system-results`}
+        >
+          <FiltersLoader loading={loading}>
+            {stories.map(({ node }) => (
+              <PhotoCard
+                key={node.contentful_id}
+                photo={node.coverPhoto.fluid}
+                photoDesc={node.coverPhoto.title}
+                title={node.title}
+                to={`/stories/${node.slug}/`}
+                date={node.createdAt}
+              />
+            ))}
+          </FiltersLoader>
         </section>
       )}
     </Layout>
@@ -72,6 +236,13 @@ export const pageQuery = graphql`
           }
           title
           createdAt
+          destination {
+            name
+          }
+          guides {
+            name
+          }
+          updatedAt
         }
       }
     }
