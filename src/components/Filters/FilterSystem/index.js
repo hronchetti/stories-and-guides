@@ -6,7 +6,6 @@ import { removeSelectedFilter } from "../../../utilities"
 
 export const FilterSystem = ({
   filters,
-  orderResults,
   setFilters,
   setSortOptions,
   sortOptions,
@@ -41,7 +40,6 @@ export const FilterSystem = ({
 
 FilterSystem.propTypes = {
   filters: PropTypes.object.isRequired,
-  orderResults: PropTypes.func.isRequired,
   setFilters: PropTypes.func.isRequired,
   setSortOptions: PropTypes.func.isRequired,
   sortOptions: PropTypes.object.isRequired,

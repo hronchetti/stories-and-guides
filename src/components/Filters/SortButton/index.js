@@ -5,12 +5,13 @@ import { useOnClickOutside } from "../../../hooks"
 
 export const SortButton = ({ sortOptions, setSortOptions }) => {
   const ref = React.useRef()
-  useOnClickOutside(ref, () =>
-    setSortOptions((curOptions) => ({
+  useOnClickOutside(ref, () => {
+    console.log("hit")
+    return setSortOptions((curOptions) => ({
       ...curOptions,
       visible: false,
     }))
-  )
+  })
 
   return (
     <div className="filter-group sort-button" ref={ref}>

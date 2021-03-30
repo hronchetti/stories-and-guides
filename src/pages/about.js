@@ -4,6 +4,7 @@ import { graphql } from "gatsby"
 import {
   Contributor,
   Grid,
+  InstagramFeed,
   LayoutPhoto,
   PhotoCard,
   PhotosSection,
@@ -23,6 +24,7 @@ const About = ({ data }) => {
     sections,
   } = data.aboutPage
 
+  const instaPosts = data.instagramPosts.edges
   const contactPagePhoto = data.contactPage.contactFormPhoto
   const latestStory = data.story.edges[0].node
   const firstDestination = data.destination.edges[0].node
@@ -82,21 +84,37 @@ const About = ({ data }) => {
         ))}
       {sections &&
         sections.length > 0 &&
-        sections.map((section) =>
-          section.__typename === "ContentfulStoriesTextSection" ? (
-            <TextSection
-              key={section.contentful_id}
-              heading={section.heading}
-              content={section.content.content}
-            />
-          ) : section.__typename === "ContentfulStoriesPhotosSection" ? (
-            <PhotosSection
-              key={section.contentful_id}
-              photos={section.photos}
-              wide={section.wide}
-            />
-          ) : null
-        )}
+        sections.map((section, index) => {
+          if (index === 2) {
+            return (
+              <React.Fragment key={section.contentful_id}>
+                {section.__typename === "ContentfulStoriesTextSection" ? (
+                  <TextSection
+                    heading={section.heading}
+                    content={section.content.content}
+                  />
+                ) : section.__typename === "ContentfulStoriesPhotosSection" ? (
+                  <PhotosSection photos={section.photos} wide={section.wide} />
+                ) : null}
+                <InstagramFeed posts={instaPosts} />
+              </React.Fragment>
+            )
+          } else {
+            return section.__typename === "ContentfulStoriesTextSection" ? (
+              <TextSection
+                key={section.contentful_id}
+                heading={section.heading}
+                content={section.content.content}
+              />
+            ) : section.__typename === "ContentfulStoriesPhotosSection" ? (
+              <PhotosSection
+                key={section.contentful_id}
+                photos={section.photos}
+                wide={section.wide}
+              />
+            ) : null
+          }
+        })}
       <SocialSignOff />
     </LayoutPhoto>
   )
@@ -214,6 +232,24 @@ export const pageQuery = graphql`
             title
             fluid(maxWidth: 2100) {
               ...GatsbyContentfulFluid
+            }
+          }
+        }
+      }
+    }
+    instagramPosts: allInstaNode(
+      limit: 6
+      sort: { order: DESC, fields: timestamp }
+    ) {
+      edges {
+        node {
+          id
+          preview
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 800, maxHeight: 800) {
+                ...GatsbyImageSharpFluid
+              }
             }
           }
         }

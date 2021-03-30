@@ -1,0 +1,71 @@
+.instagram-feed {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.25rem;
+
+  .instragram-feed-post {
+    cursor: pointer;
+    position: relative;
+
+    &:after {
+      @include animation-preset;
+      display: block;
+      font-family: "icomoon";
+      content: "\e903";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: white;
+      opacity: 0;
+      will-change: opacity;
+      transition: opacity 150ms ease-in;
+      pointer-events: none;
+    }
+
+    img {
+      filter: brightness(100%);
+      will-change: filter;
+      transition: filter 150ms ease-in, opacity 500ms ease 0s !important;
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        &:after {
+          opacity: 1;
+        }
+
+        img {
+          filter: brightness(65%);
+        }
+      }
+    }
+
+    &:focus {
+      &:after {
+        opacity: 1;
+      }
+
+      img {
+        filter: brightness(75%);
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 600px) {
+  .instagram-feed {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  .instagram-feed {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+
+    &.instagram-feed-small {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+}

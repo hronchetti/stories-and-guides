@@ -15,6 +15,7 @@ export { Nav } from "./Nav"
 export { PhotoCard } from "./PhotoCard"
 export {
   AccordionsSection,
+  InstagramFeed,
   PhotoGallerySection,
   PhotosSection,
   QuoteSection,
