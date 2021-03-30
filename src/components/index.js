@@ -10,7 +10,7 @@ export {
 } from "./Filters"
 export { Footer } from "./Footer"
 export { Input, TextArea, ErrorText, Form, Checkbox } from "./Form"
-export { Layout, LayoutPhoto } from "./Layouts"
+export { Layout, LayoutPhoto, LayoutHomepage } from "./Layouts"
 export { Nav } from "./Nav"
 export { PhotoCard } from "./PhotoCard"
 export {

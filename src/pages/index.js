@@ -1,7 +1,7 @@
 import * as React from "react"
 import { graphql, Link } from "gatsby"
 
-import { LayoutPhoto, Seo, PhotoCard, Grid } from "../components"
+import { LayoutHomepage, Seo, PhotoCard, Grid } from "../components"
 
 const IndexPage = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
@@ -17,7 +17,7 @@ const IndexPage = ({ data }) => {
   } = data.homepage
   const latestStories = data.latestStories.edges
   return (
-    <LayoutPhoto
+    <LayoutHomepage
       heading={heading}
       introduction={introduction.introduction}
       photo={coverPhoto.fluid}
@@ -94,7 +94,7 @@ const IndexPage = ({ data }) => {
           </Link>
         </div>
       </section>
-    </LayoutPhoto>
+    </LayoutHomepage>
   )
 }
 
