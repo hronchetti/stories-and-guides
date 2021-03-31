@@ -247,7 +247,7 @@ export const pageQuery = graphql`
           preview
           localFile {
             childImageSharp {
-              fluid(maxWidth: 800, maxHeight: 800) {
+              fluid(maxWidth: 800) {
                 ...GatsbyImageSharpFluid
               }
             }
@@ -257,7 +257,3 @@ export const pageQuery = graphql`
     }
   }
 `
-
-/* 
-
-     */

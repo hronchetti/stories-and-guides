@@ -159,7 +159,7 @@ export const pageQuery = graphql`
         }
         ... on ContentfulStoriesPhotoGalleries {
           photos {
-            fluid {
+            fluid(maxWidth: 2100) {
               ...GatsbyContentfulFluid
             }
             title
@@ -170,7 +170,7 @@ export const pageQuery = graphql`
         ... on ContentfulStoriesPhotosSection {
           photos {
             contentful_id
-            fluid {
+            fluid(maxWidth: 2100) {
               ...GatsbyContentfulFluid
             }
             title

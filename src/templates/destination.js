@@ -180,7 +180,7 @@ export const pageQuery = graphql`
         slug
         coverPhoto {
           title
-          fluid(maxWidth: 1000) {
+          fluid(maxWidth: 2100) {
             ...GatsbyContentfulFluid
           }
         }
@@ -232,7 +232,7 @@ export const pageQuery = graphql`
           name
           slug
           coverPhoto {
-            fluid(maxWidth: 1000) {
+            fluid(maxWidth: 2100) {
               ...GatsbyContentfulFluid
             }
             title
