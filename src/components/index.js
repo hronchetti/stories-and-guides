@@ -13,6 +13,7 @@ export { Input, TextArea, ErrorText, Form, Checkbox } from "./Form"
 export { Layout, LayoutPhoto, LayoutHomepage } from "./Layouts"
 export { Nav } from "./Nav"
 export { PhotoCard } from "./PhotoCard"
+export { RichText } from "./RichText"
 export {
   AccordionsSection,
   InstagramFeed,

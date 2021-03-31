@@ -1,20 +1,21 @@
 import React from "react"
 import { graphql } from "gatsby"
 
-import { Layout, Seo } from "../components"
+import { Layout, Seo, RichText } from "../components"
 
 const PrivacyPolicy = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
   const { heading, content, seo } = data.privacyPolicy
 
   return (
-    <Layout heading="Privacy policy">
+    <Layout heading={heading}>
       <Seo
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl}
         image={seo.image.file.url}
       />
+      <RichText content={content} />
     </Layout>
   )
 }
