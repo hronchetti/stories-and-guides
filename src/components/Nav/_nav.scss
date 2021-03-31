@@ -188,6 +188,9 @@
             &:nth-child(#{$i}) {
               a {
                 transition-delay: 600ms + (75ms * $i);
+                //:nth-child(1) transition-delay: 675ms
+                //:nth-child(2) transition-delay: 750ms
+                //:nth-child(3) transition-delay: 825ms
               }
             }
           }
@@ -203,7 +206,7 @@
           @for $i from 1 to 3 {
             &:nth-child(#{$i}) {
               a {
-                transition-timing-function: ease;
+                transition-timing-function: ease-in;
                 transition-delay: 825ms + (75ms * $i);
               }
             }

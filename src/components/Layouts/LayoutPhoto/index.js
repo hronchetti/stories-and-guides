@@ -5,12 +5,13 @@ import Img from "gatsby-image"
 import { Footer, Nav } from "../.."
 
 export const LayoutPhoto = ({
+  children,
+  date,
   heading,
   introduction,
   photo,
   photoDesc,
-  children,
-  date,
+  wrapper,
 }) => (
   <>
     <Nav colour="light" />
@@ -24,13 +25,14 @@ export const LayoutPhoto = ({
         </p>
       </div>
     </header>
-    <main className="wrapper-width">{children}</main>
+    <main className={wrapper ? "wrapper-width" : ""}>{children}</main>
     <Footer />
   </>
 )
 
 LayoutPhoto.defaultProps = {
   date: "",
+  wrapper: true,
 }
 
 LayoutPhoto.propTypes = {
@@ -39,4 +41,5 @@ LayoutPhoto.propTypes = {
   photo: PropTypes.object.isRequired,
   photoDesc: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
+  wrapper: PropTypes.bool,
 }

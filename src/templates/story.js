@@ -17,7 +17,6 @@ import {
 
 const Story = ({ data }) => {
   const { siteUrl } = data.site.siteMetadata
-
   const {
     coverPhoto,
     createdAt,
@@ -35,6 +34,7 @@ const Story = ({ data }) => {
       introduction={introduction.introduction}
       photo={coverPhoto.fluid}
       photoDesc={coverPhoto.title}
+      wrapper={false}
     >
       <Seo
         title={seo.title}
@@ -46,52 +46,66 @@ const Story = ({ data }) => {
         sections.length > 0 &&
         sections.map((section) =>
           section.__typename === "ContentfulAccordionGroups" ? (
-            <AccordionsSection
-              key={section.contentful_id}
-              heading={section.heading}
-              accordions={section.accordions}
-            />
+            <section className="wrapper-width" key={section.contentful_id}>
+              <AccordionsSection
+                heading={section.heading}
+                accordions={section.accordions}
+              />
+            </section>
           ) : section.__typename === "ContentfulStoriesPhotoGalleries" ? (
-            <PhotoGallerySection key={section.contentful_id} />
-          ) : section.__typename === "ContentfulStoriesPhotosSection" ? (
-            <PhotosSection
-              key={section.contentful_id}
+            <PhotoGallerySection
               photos={section.photos}
-              wide={section.wide}
+              key={section.contentful_id}
             />
+          ) : section.__typename === "ContentfulStoriesPhotosSection" ? (
+            <section className="wrapper-width" key={section.contentful_id}>
+              <PhotosSection
+                key={section.contentful_id}
+                photos={section.photos}
+                wide={section.wide}
+              />
+            </section>
           ) : section.__typename === "ContentfulStoriesQuoteSections" ? (
-            <QuoteSection
-              key={section.contentful_id}
-              quote={section.quote.quote}
-              author={section.author}
-            />
+            <section className="wrapper-width" key={section.contentful_id}>
+              <QuoteSection
+                key={section.contentful_id}
+                quote={section.quote.quote}
+                author={section.author}
+              />
+            </section>
           ) : section.__typename === "ContentfulStoriesTextSection" ? (
-            <TextSection
-              key={section.contentful_id}
-              heading={section.heading}
-              content={section.content.content}
-            />
+            <section className="wrapper-width" key={section.contentful_id}>
+              <TextSection
+                key={section.contentful_id}
+                heading={section.heading}
+                content={section.content.content}
+              />
+            </section>
           ) : null
         )}
-      <SocialSignOff />
+      <section className="wrapper-width">
+        <SocialSignOff />
+      </section>
       {relatedStories && relatedStories.length > 0 && (
-        <Grid
-          itemCount={relatedStories.length}
-          heading="More stories like this"
-          linkText="All stories"
-          linkTo="/stories/"
-        >
-          {relatedStories.map((relatedStory) => (
-            <PhotoCard
-              key={relatedStory.contentful_id}
-              title={relatedStory.title}
-              photo={relatedStory.coverPhoto.fluid}
-              photoDesc={relatedStory.coverPhoto.title}
-              to={`/stories/${relatedStory.slug}/`}
-              date={relatedStory.createdAt}
-            />
-          ))}
-        </Grid>
+        <section className="wrapper-width">
+          <Grid
+            itemCount={relatedStories.length}
+            heading="More stories like this"
+            linkText="All stories"
+            linkTo="/stories/"
+          >
+            {relatedStories.map((relatedStory) => (
+              <PhotoCard
+                key={relatedStory.contentful_id}
+                title={relatedStory.title}
+                photo={relatedStory.coverPhoto.fluid}
+                photoDesc={relatedStory.coverPhoto.title}
+                to={`/stories/${relatedStory.slug}/`}
+                date={relatedStory.createdAt}
+              />
+            ))}
+          </Grid>
+        </section>
       )}
     </LayoutPhoto>
   )
