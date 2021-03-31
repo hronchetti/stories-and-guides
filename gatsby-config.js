@@ -28,6 +28,7 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
     "gatsby-transformer-sharp",
+    "gatsby-plugin-force-trailing-slashes",
     {
       resolve: "gatsby-source-contentful",
       options: {
