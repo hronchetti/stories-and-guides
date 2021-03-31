@@ -120,7 +120,6 @@ const Contact = ({ data }) => {
                 </Form>
               )}
             </Formik>
-
             <Img
               className={`contact-photo${isVisible ? " active" : ""}`}
               fluid={contactFormPhoto.fluid}

@@ -12,6 +12,7 @@
 
   .contact-photo {
     opacity: 0;
+    will-change: opacity;
     transition: opacity $fadeInDuartion ease-in;
 
     &.active {

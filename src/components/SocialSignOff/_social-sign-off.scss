@@ -1,3 +1,16 @@
+.thank-you {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  .thank-you-line {
+    display: block;
+    height: 1px;
+    width: 5rem;
+    background-color: #ebe8e6;
+    margin: 0 auto 1.5rem auto;
+  }
+}
+
 .social-sign-off {
   background-color: $grey-light;
   text-align: center;
@@ -48,6 +61,10 @@
 }
 
 @media only screen and (min-width: 900px) {
+  .thank-you {
+    margin-bottom: 4rem;
+  }
+
   .social-sign-off {
     padding: 2.5rem 3rem 3.5rem 3rem;
 
@@ -62,6 +79,10 @@
 }
 
 @media only screen and (min-width: 1100px) {
+  .thank-you {
+    margin-bottom: 7.5rem;
+  }
+
   .social-sign-off-wrapper {
     padding-top: 10rem;
   }

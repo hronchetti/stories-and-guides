@@ -10,40 +10,70 @@ export const PhotoGallerySection = ({ photos }) => {
     const nextSlide = document.getElementsByClassName(
       `slide-${currentIndex + 1}`
     )[0]
-    console.log(nextSlide.clientWidth)
+    const nextSlideWidth = nextSlide.clientWidth
+    const nextSlideMarginRight = parseInt(
+      window
+        .getComputedStyle(nextSlide)
+        .getPropertyValue("margin-right")
+        .split("px")[0]
+    )
+
+    setTranslateValue(
+      (current) => current - nextSlideWidth - nextSlideMarginRight
+    )
+    setCurrentIndex((current) => current + 1)
   }
 
   const previousSlide = () => {
     const previousSlide = document.getElementsByClassName(
       `slide-${currentIndex - 1}`
     )[0]
-    // Get computed style and add margin to client width/offset width
-    console.log(previousSlide.clientWidth)
+    const previousSlideWidth = previousSlide.clientWidth
+    const previousSlideMarginRight = parseInt(
+      window
+        .getComputedStyle(previousSlide)
+        .getPropertyValue("margin-right")
+        .split("px")[0]
+    )
+
+    setTranslateValue(
+      (current) => current + previousSlideWidth + previousSlideMarginRight
+    )
+    setCurrentIndex((current) => current - 1)
   }
 
   return (
     <section className="wrapper-height photo-gallery-section">
       <div className="photo-gallery-section-photos">
-        <button
-          className="photo-gallery-section-button photo-gallery-section-button-left"
-          onClick={previousSlide}
+        {currentIndex !== 0 && (
+          <button
+            className="photo-gallery-section-button photo-gallery-section-button-left"
+            onClick={previousSlide}
+          >
+            <span className="hidden">Previous photo</span>
+            <span className="icon-arrow"></span>
+          </button>
+        )}
+        {currentIndex !== photos.length - 1 && (
+          <button
+            className="photo-gallery-section-button photo-gallery-section-button-right"
+            onClick={nextSlide}
+          >
+            <span className="hidden">Next photo</span>
+            <span className="icon-arrow"></span>
+          </button>
+        )}
+        <div
+          className="photo-gallery-section-photos-list"
+          style={{
+            transform: `translateX(${translateValue}px)`,
+          }}
         >
-          <span className="hidden">Previous photo</span>
-          <span className="icon-arrow"></span>
-        </button>
-        <button
-          className="photo-gallery-section-button photo-gallery-section-button-right"
-          onClick={nextSlide}
-        >
-          <span className="hidden">Next photo</span>
-          <span className="icon-arrow"></span>
-        </button>
-        <div className="photo-gallery-section-photos-list">
           {photos.map((photo, index) => (
             <Img
               id={`slide-${index}`}
               key={photo.contentful_id}
-              className={`photo-gallery-section-photo slide-${index} `}
+              className={`photo-gallery-section-photo slide-${index}`}
               fluid={photo.fluid}
               alt={photo.title}
             />
