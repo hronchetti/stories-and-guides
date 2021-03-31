@@ -30,7 +30,12 @@ export const Seo = ({
       }
     `}
     render={(data) => (
-      <Helmet title={title ? title : data.defaultSeo.title}>
+      <Helmet
+        title={title ? title : data.defaultSeo.title}
+        htmlAttributes={{
+          lang: "en",
+        }}
+      >
         <meta
           name="description"
           content={

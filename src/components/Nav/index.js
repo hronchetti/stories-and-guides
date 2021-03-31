@@ -33,6 +33,7 @@ export const Nav = ({ colour }) => {
         <div className="nav-header">
           <Link to="/" className="nav-header-logo">
             <Logo />
+            <span className="hidden">Homepage</span>
           </Link>
           <button
             className={`nav-header-menu-button${

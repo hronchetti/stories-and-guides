@@ -16,7 +16,11 @@ export const Toast = ({ dismissFunc, type, message, isVisible }) => (
         dangerouslySetInnerHTML={{ __html: message }}
       />
     </div>
-    <button className="toast-dismiss-button" onClick={dismissFunc}>
+    <button
+      className="toast-dismiss-button"
+      onClick={dismissFunc}
+      aria-label="Dismiss message"
+    >
       <span className="hidden">Close</span>
       <span className="icon-close" />
     </button>
