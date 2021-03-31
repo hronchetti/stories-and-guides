@@ -12,7 +12,7 @@ export const InstagramFeed = ({ posts }) => {
       >
         {posts.map(({ node }) => (
           <a
-            href="https://www.instagram.com/rolfeewan/"
+            href="https://www.instagram.com/storiesandguides/"
             target="_blank"
             rel="noopener"
             key={node.id}

@@ -96,7 +96,7 @@ const About = ({ data }) => {
                 ) : section.__typename === "ContentfulStoriesPhotosSection" ? (
                   <PhotosSection photos={section.photos} wide={section.wide} />
                 ) : null}
-                {/* <InstagramFeed posts={instaPosts} /> */}
+                <InstagramFeed posts={instaPosts} />
               </React.Fragment>
             )
           } else {
@@ -237,11 +237,7 @@ export const pageQuery = graphql`
         }
       }
     }
-  }
-`
-
-/* 
-instagramPosts: allInstaNode(
+    instagramPosts: allInstaNode(
       limit: 6
       sort: { order: DESC, fields: timestamp }
     ) {
@@ -259,4 +255,9 @@ instagramPosts: allInstaNode(
         }
       }
     }
+  }
+`
+
+/* 
+
      */
