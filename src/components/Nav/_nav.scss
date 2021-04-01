@@ -53,7 +53,7 @@
           .nav-header-logo {
             svg {
               path {
-                fill: $beige-light;
+                fill: $beige-medium;
                 transition: fill 200ms ease-in 0ms;
               }
             }
@@ -96,11 +96,19 @@
       padding: 1.75rem 0;
 
       .nav-header-logo {
-        svg {
-          width: 8rem;
+        .nav-header-logo-large {
+          display: none;
+        }
 
+        .nav-header-logo-small {
+          svg {
+            width: 3.5rem;
+          }
+        }
+
+        svg {
           path {
-            fill: $beige-light;
+            fill: $beige-medium;
           }
         }
       }
@@ -290,6 +298,27 @@
     &.active {
       height: 100vh;
       transition-delay: 400ms;
+    }
+  }
+}
+@media only screen and (min-width: 600px) {
+  .nav {
+    .nav-wrapper {
+      .nav-header {
+        .nav-header-logo {
+          .nav-header-logo-small {
+            display: none;
+          }
+
+          .nav-header-logo-large {
+            display: block;
+
+            svg {
+              width: 13.75rem;
+            }
+          }
+        }
+      }
     }
   }
 }

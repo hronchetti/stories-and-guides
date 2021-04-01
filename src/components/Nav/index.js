@@ -2,7 +2,8 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Link } from "gatsby"
 
-import Logo from "../../images/stories-and-guides-logo.svg"
+import LogoSmall from "../../images/stories-and-guides-logo-small.svg"
+import LogoLarge from "../../images/stories-and-guides-logo-large.svg"
 
 export const Nav = ({ colour }) => {
   const [mobileMenuVisible, setMobileMenuVisible] = React.useState(false)
@@ -32,7 +33,12 @@ export const Nav = ({ colour }) => {
       <section className="wrapper-width nav-wrapper">
         <div className="nav-header">
           <Link to="/" className="nav-header-logo">
-            <Logo />
+            <div className="nav-header-logo-small">
+              <LogoSmall />
+            </div>
+            <div className="nav-header-logo-large">
+              <LogoLarge />
+            </div>
             <span className="hidden">Homepage</span>
           </Link>
           <button
