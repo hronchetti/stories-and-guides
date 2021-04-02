@@ -9,7 +9,7 @@ const Destination = ({ data }) => {
   const {
     coverPhoto,
     featuredStories,
-    guides___destination_guides,
+    destinationGuides,
     introduction,
     name,
     region,
@@ -45,9 +45,9 @@ const Destination = ({ data }) => {
         url={siteUrl + `/destinations/${slug}`}
         image={seo.image.file.url}
       />
-      {guides___destination_guides && guides___destination_guides.length > 0 && (
-        <Grid itemCount={guides___destination_guides.length} heading="Guides">
-          {guides___destination_guides.map((destinationGuide) => {
+      {destinationGuides && destinationGuides.length > 0 && (
+        <Grid itemCount={destinationGuides.length} heading="Guides">
+          {destinationGuides.map((destinationGuide) => {
             if (destinationGuide.guides && destinationGuide.guides.length > 0) {
               return (
                 <PhotoCard
@@ -174,7 +174,7 @@ export const pageQuery = graphql`
         title
         createdAt
       }
-      guides___destination_guides {
+      destinationGuides {
         contentful_id
         name
         slug
@@ -206,6 +206,7 @@ export const pageQuery = graphql`
       }
     }
     stories: allContentfulStories(
+      sort: { fields: updatedAt, order: ASC }
       filter: { destination: { contentful_id: { eq: $id } } }
     ) {
       edges {
@@ -224,6 +225,7 @@ export const pageQuery = graphql`
       }
     }
     otherDesinationsInRegion: allContentfulDestinations(
+      sort: { fields: name, order: ASC }
       filter: { region: { eq: $region }, contentful_id: { ne: $id } }
     ) {
       edges {

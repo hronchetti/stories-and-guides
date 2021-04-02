@@ -207,6 +207,7 @@ export const pageQuery = graphql`
       }
     }
     stories: allContentfulStories(
+      sort: { fields: updatedAt, order: ASC }
       filter: {
         destinationGuides: {
           elemMatch: { guides: { elemMatch: { contentful_id: { eq: $id } } } }
