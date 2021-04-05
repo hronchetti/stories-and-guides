@@ -41,7 +41,7 @@ const About = ({ data }) => {
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/about/`}
-        image={seo.image.file.url}
+        image={seo.image && seo.image.file && seo.image.file.url}
       />
       <Grid itemCount={4} heading="Navigating the blog">
         <PhotoCard

@@ -119,7 +119,7 @@ const Guides = ({ data }) => {
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/guides/`}
-        image={seo.image.file.url}
+        image={seo.image && seo.image.file && seo.image.file.url}
       />
       <FilterSystem
         filters={filters}

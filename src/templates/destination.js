@@ -43,7 +43,7 @@ const Destination = ({ data }) => {
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/destinations/${slug}`}
-        image={seo.image.file.url}
+        image={seo.image && seo.image.file && seo.image.file.url}
       />
       {destinationGuides && destinationGuides.length > 0 && (
         <Grid itemCount={destinationGuides.length} heading="Guides">

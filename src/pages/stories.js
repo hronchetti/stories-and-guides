@@ -154,7 +154,7 @@ const Stories = ({ data }) => {
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/stories/`}
-        image={seo.image.file.url}
+        image={seo.image && seo.image.file && seo.image.file.url}
       />
       <section className="filter-system filter-system-multiple-filters">
         <div className="filter-system-multiple-filters-options">

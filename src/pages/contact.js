@@ -64,7 +64,7 @@ const Contact = ({ data }) => {
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/contact/`}
-        image={seo.image.file.url}
+        image={seo.image && seo.image.file && seo.image.file.url}
       />
       <TrackVisibility className="contact" partialVisibility once tag="section">
         {({ isVisible }) => (

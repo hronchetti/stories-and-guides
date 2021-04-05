@@ -13,7 +13,7 @@ const PrivacyPolicy = ({ data }) => {
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl}
-        image={seo.image.file.url}
+        image={seo.image && seo.image.file && seo.image.file.url}
       />
       <RichText content={content} />
     </Layout>

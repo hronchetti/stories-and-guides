@@ -46,7 +46,7 @@ const SubGuideDestinationGuide = ({ data }) => {
         url={
           siteUrl + `/guides/${data.guide.slug}/${data.subGuide.slug}/${slug}/`
         }
-        image={seo.image.file.url}
+        image={seo.image && seo.image.file && seo.image.file.url}
       />
       {featuredStories && featuredStories.length > 0 && (
         <Grid

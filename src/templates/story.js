@@ -40,7 +40,7 @@ const Story = ({ data }) => {
         title={seo.title}
         description={seo.metaDescription.metaDescription}
         url={siteUrl + `/stories/${slug}/`}
-        image={seo.image.file.url}
+        image={seo.image && seo.image.file && seo.image.file.url}
       />
       {sections &&
         sections.length > 0 &&
