@@ -74,8 +74,9 @@ module.exports = {
     {
       resolve: `gatsby-source-instagram`,
       options: {
-        access_token: `EAACyfYwmbbgBAD4azdt25VKA6QZACocKViyajt9OuKO2PjC2HvijMMB8VtGfB5oZCJfslMMgTOOEIZCZAVVIQJplgNFVzW3fUFSe310YFj6Ulf1wB40AZCK88omxSpZBNZCilTk5Oc2bqGCrqAwv82Axr6SKIinE8uRqpjZBj9Ti87rzKznWMKwFhHSA7ikqvqkZD`,
-        instagram_id: `17841445553162630`,
+        username: "45541046438",
+        // access_token: `EAACyfYwmbbgBAD4azdt25VKA6QZACocKViyajt9OuKO2PjC2HvijMMB8VtGfB5oZCJfslMMgTOOEIZCZAVVIQJplgNFVzW3fUFSe310YFj6Ulf1wB40AZCK88omxSpZBNZCilTk5Oc2bqGCrqAwv82Axr6SKIinE8uRqpjZBj9Ti87rzKznWMKwFhHSA7ikqvqkZD`,
+        // instagram_id: `17841445553162630`,
       },
     },
   ],

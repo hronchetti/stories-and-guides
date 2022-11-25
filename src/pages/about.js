@@ -237,23 +237,23 @@ export const pageQuery = graphql`
         }
       }
     }
-    # instagramPosts: allInstaNode(
-    #   limit: 6
-    #   sort: { order: DESC, fields: timestamp }
-    # ) {
-    #   edges {
-    #     node {
-    #       id
-    #       preview
-    #       localFile {
-    #         childImageSharp {
-    #           fluid(maxWidth: 800) {
-    #             ...GatsbyImageSharpFluid
-    #           }
-    #         }
-    #       }
-    #     }
-    #   }
-    # }
+    instagramPosts: allInstaNode(
+      limit: 6
+      sort: { order: DESC, fields: timestamp }
+    ) {
+      edges {
+        node {
+          id
+          preview
+          localFile {
+            childImageSharp {
+              fluid(maxWidth: 800) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
   }
 `
